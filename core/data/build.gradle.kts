@@ -1,6 +1,7 @@
 import configs.GradleNamespaces
 import configs.GradleVersions
 import dependencies.androidxCore
+import dependencies.gson
 import modules.coreDomain
 
 plugins {
@@ -29,4 +30,6 @@ android {
 dependencies {
     androidxCore()
     coreDomain()
+
+    gson()
 }

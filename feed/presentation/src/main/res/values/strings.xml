@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="feed_search_hint">Должность, ключевые слова</string>
+    <string name="feed_filter_counter">%d вакансий</string>
+    <string name="feed_filter_type">По соответсвию</string>
+    <string name="feed_map_button">Карта</string>
 
     <string name="feed_vacancies">Вакансии для вас</string>
 
     <string name="feed_vacancy_looking_number">Сейчас просматривает %d человек</string>
+    <string name="feed_vacancy_published_date">Опубликовано %s</string>
     <string name="feed_vacancy_reply">Откликнуться</string>
+
+    <string name="feed_show_more_vacancies_button">Еще %d вакансий</string>
 </resources>

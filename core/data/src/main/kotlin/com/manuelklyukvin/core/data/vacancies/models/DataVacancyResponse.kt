@@ -1,4 +1,4 @@
-package com.manuelklyukvin.feed.data.vacancy.models
+package com.manuelklyukvin.core.data.vacancies.models
 
 import com.google.gson.annotations.SerializedName
 

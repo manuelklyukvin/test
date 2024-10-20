@@ -1,17 +1,20 @@
-package com.manuelklyukvin.feed.presentation.screen.models
+package com.manuelklyukvin.core.data.vacancies.models
 
-import com.manuelklyukvin.feed.domain.vacancy.model.DomainVacancy
+import com.manuelklyukvin.core.domain.vacancies.model.DomainAddress
+import com.manuelklyukvin.core.domain.vacancies.model.DomainExperience
+import com.manuelklyukvin.core.domain.vacancies.model.DomainSalary
+import com.manuelklyukvin.core.domain.vacancies.model.DomainVacancy
 
-data class Vacancy(
+data class DataVacancy(
     val id: String,
     val lookingNumber: Int,
     val title: String,
-    val address: Address,
+    val address: DataAddress,
     val company: String,
-    val experience: Experience,
+    val experience: DataExperience,
     val publishedDate: String,
     val isFavorite: Boolean,
-    val salary: Salary,
+    val salary: DataSalary,
     val schedules: List<String>,
     val appliedNumber: Int,
     val description: String?,
@@ -19,39 +22,39 @@ data class Vacancy(
     val questions: List<String>
 )
 
-data class Address(
+data class DataAddress(
     val town: String,
     val street: String,
     val house: String
 )
 
-data class Experience(
+data class DataExperience(
     val previewText: String,
     val text: String
 )
 
-data class Salary(
+data class DataSalary(
     val short: String?,
     val full: String
 )
 
-fun DomainVacancy.toPresentation() = Vacancy(
+fun DataVacancy.toDomain() = DomainVacancy(
     id = id,
     lookingNumber = lookingNumber,
     title = title,
-    address = Address(
+    address = DomainAddress(
         town = address.town,
         street = address.street,
         house = address.house
     ),
     company = company,
-    experience = Experience(
+    experience = DomainExperience(
         previewText = experience.previewText,
         text = experience.text
     ),
     publishedDate = publishedDate,
     isFavorite = isFavorite,
-    salary = Salary(
+    salary = DomainSalary(
         short = salary.short,
         full = salary.full
     ),

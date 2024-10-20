@@ -1,6 +1,7 @@
 package com.manuelklyukvin.feed.presentation.screen.models
 
 import androidx.compose.foundation.text.input.TextFieldState
+import com.manuelklyukvin.core.vacancies.models.Vacancy
 
 data class FeedState(
     val viewState: FeedViewState = FeedViewState.INITIAL,

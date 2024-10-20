@@ -1,4 +1,4 @@
-package com.manuelklyukvin.feed.domain.vacancy
+package com.manuelklyukvin.core.domain.vacancies
 
 class GetVacanciesUseCase(private val vacancyRepository: VacancyRepository) {
 

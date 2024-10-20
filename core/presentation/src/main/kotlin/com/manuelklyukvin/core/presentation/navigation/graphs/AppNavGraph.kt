@@ -12,11 +12,12 @@ import com.manuelklyukvin.core.presentation.theme.resources.Animations
 fun AppNavGraph(
     signInScreen: @Composable () -> Unit,
     codeScreen: @Composable (String) -> Unit,
-    feedScreen: @Composable () -> Unit
+    feedScreen: @Composable () -> Unit,
+    vacancyScreen: @Composable (String) -> Unit
 ) {
     NavHost(
         navController = LocalNavigationState.current.navController,
-        startDestination = Screen.Feed,
+        startDestination = Screen.Home,
         enterTransition = Animations.enterTransition,
         exitTransition = Animations.exitTransition,
         popEnterTransition = Animations.enterTransition,
@@ -30,12 +31,14 @@ fun AppNavGraph(
                 codeScreen(email)
             }
         )
-        composable<Screen.Feed> {
-            feedScreen()
-        }
-        composable<Screen.Vacancy> {
-
-        }
+        homeNavGraph(
+            feedScreen = {
+                feedScreen()
+            },
+            vacancyScreen = { vacancyId ->
+                vacancyScreen(vacancyId)
+            }
+        )
         composable<Screen.Favorite> {
             AppScaffold {  }
         }

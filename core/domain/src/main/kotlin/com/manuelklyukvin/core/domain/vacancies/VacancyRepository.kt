@@ -1,7 +1,7 @@
-package com.manuelklyukvin.feed.domain.vacancy
+package com.manuelklyukvin.core.domain.vacancies
 
 import com.manuelklyukvin.core.domain.result.Result
-import com.manuelklyukvin.feed.domain.vacancy.model.DomainVacancy
+import com.manuelklyukvin.core.domain.vacancies.model.DomainVacancy
 
 interface VacancyRepository {
 

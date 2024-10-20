@@ -1,4 +1,4 @@
-package com.manuelklyukvin.feed.domain.offer.model
+package com.manuelklyukvin.feed.domain.offers.model
 
 data class DomainOffer(
     val id: String?,

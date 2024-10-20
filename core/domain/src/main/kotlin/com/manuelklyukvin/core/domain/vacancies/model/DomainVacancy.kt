@@ -1,4 +1,4 @@
-package com.manuelklyukvin.feed.domain.vacancy.model
+package com.manuelklyukvin.core.domain.vacancies.model
 
 data class DomainVacancy(
     val id: String,

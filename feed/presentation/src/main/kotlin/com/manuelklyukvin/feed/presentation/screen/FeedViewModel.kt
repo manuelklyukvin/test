@@ -4,8 +4,13 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.manuelklyukvin.core.domain.result.Result
-import com.manuelklyukvin.feed.domain.offer.GetOffersUseCase
-import com.manuelklyukvin.feed.domain.vacancy.GetVacanciesUseCase
+import com.manuelklyukvin.core.domain.vacancies.FormatPublishedDateUseCase
+import com.manuelklyukvin.core.domain.vacancies.GetVacanciesUseCase
+import com.manuelklyukvin.core.presentation.navigation.NavigationState
+import com.manuelklyukvin.core.presentation.navigation.Screen
+import com.manuelklyukvin.core.vacancies.models.toPresentation
+import com.manuelklyukvin.feed.domain.offers.GetOffersUseCase
+import com.manuelklyukvin.feed.presentation.screen.models.FeedEvent
 import com.manuelklyukvin.feed.presentation.screen.models.FeedState
 import com.manuelklyukvin.feed.presentation.screen.models.FeedViewState
 import com.manuelklyukvin.feed.presentation.screen.models.toPresentation
@@ -19,7 +24,8 @@ import javax.inject.Inject
 @HiltViewModel
 class FeedViewModel @Inject constructor(
     private val getOffersUseCase: GetOffersUseCase,
-    private val getVacanciesUseCase: GetVacanciesUseCase
+    private val getVacanciesUseCase: GetVacanciesUseCase,
+    private val formatPublishedDateUseCase: FormatPublishedDateUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(FeedState())
@@ -30,7 +36,15 @@ class FeedViewModel @Inject constructor(
         _state.value = state.value.copy(viewState = FeedViewState.LOADING)
         loadOffers()
         loadVacancies()
-        _state.value = state.value.copy(viewState = FeedViewState.CONTENT)
+        _state.value = state.value.copy(viewState = FeedViewState.PREVIEW)
+    }
+
+    fun onEvent(event: FeedEvent) = when (event) {
+        is FeedEvent.OnVacancyClicked -> onVacancyClicked(
+            vacancyId = event.vacancyId,
+            navigationState = event.navigationState
+        )
+        FeedEvent.OnShowMoreVacanciesButtonClicked -> onShowMoreVacancies()
     }
 
     private fun loadOffers() {
@@ -54,12 +68,25 @@ class FeedViewModel @Inject constructor(
                 is Result.Success -> {
                     _state.value = state.value.copy(
                         vacancyList = result.data.map { domainVacancy ->
-                            domainVacancy.toPresentation()
+                            domainVacancy.toPresentation().copy(
+                                publishedDate = formatPublishedDateUseCase(domainVacancy.publishedDate)
+                            )
                         }
                     )
                 }
                 is Result.Error -> Log.e("Test", result.error.toString())
             }
         }
+    }
+
+    private fun onVacancyClicked(
+        vacancyId: String,
+        navigationState: NavigationState
+    ) {
+        navigationState.navigate(Screen.Vacancy(vacancyId))
+    }
+
+    private fun onShowMoreVacancies() {
+        _state.value = state.value.copy(viewState = FeedViewState.FULL)
     }
 }

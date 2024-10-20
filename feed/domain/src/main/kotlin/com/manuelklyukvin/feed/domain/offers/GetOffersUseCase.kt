@@ -1,4 +1,4 @@
-package com.manuelklyukvin.feed.domain.offer
+package com.manuelklyukvin.feed.domain.offers
 
 class GetOffersUseCase(private val offerRepository: OfferRepository) {
 

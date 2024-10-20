@@ -1,9 +1,10 @@
-package com.manuelklyukvin.feed.presentation.di
+package com.manuelklyukvin.core.di
 
+import com.manuelklyukvin.core.data.vacancies.VacancyRepositoryImpl
 import com.manuelklyukvin.core.domain.database.GetDatabaseUseCase
-import com.manuelklyukvin.feed.data.vacancy.VacancyRepositoryImpl
-import com.manuelklyukvin.feed.domain.vacancy.GetVacanciesUseCase
-import com.manuelklyukvin.feed.domain.vacancy.VacancyRepository
+import com.manuelklyukvin.core.domain.vacancies.FormatPublishedDateUseCase
+import com.manuelklyukvin.core.domain.vacancies.GetVacanciesUseCase
+import com.manuelklyukvin.core.domain.vacancies.VacancyRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,7 +12,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-object VacancyModule {
+object VacanciesModule {
 
     @Provides
     fun provideVacancyRepository(getDatabaseUseCase: GetDatabaseUseCase): VacancyRepository {
@@ -20,4 +21,7 @@ object VacancyModule {
 
     @Provides
     fun provideGetVacanciesUseCase(vacancyRepository: VacancyRepository) = GetVacanciesUseCase(vacancyRepository)
+
+    @Provides
+    fun provideFormatPublishedDateUseCase() = FormatPublishedDateUseCase()
 }

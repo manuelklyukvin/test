@@ -1,6 +1,6 @@
 package com.manuelklyukvin.feed.presentation.screen.models
 
-import com.manuelklyukvin.feed.domain.offer.model.DomainOffer
+import com.manuelklyukvin.feed.domain.offers.model.DomainOffer
 
 data class Offer(
     val id: String?,

@@ -1,9 +1,9 @@
 package com.manuelklyukvin.feed.presentation.di
 
 import com.manuelklyukvin.core.domain.database.GetDatabaseUseCase
-import com.manuelklyukvin.feed.data.offer.OfferRepositoryImpl
-import com.manuelklyukvin.feed.domain.offer.GetOffersUseCase
-import com.manuelklyukvin.feed.domain.offer.OfferRepository
+import com.manuelklyukvin.feed.data.offers.OfferRepositoryImpl
+import com.manuelklyukvin.feed.domain.offers.GetOffersUseCase
+import com.manuelklyukvin.feed.domain.offers.OfferRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,7 +11,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-object OfferModule {
+object OffersModule {
 
     @Provides
     fun provideOfferRepository(getDatabaseUseCase: GetDatabaseUseCase): OfferRepository {

@@ -12,9 +12,11 @@ sealed interface Screen {
     data class Code(val email: String) : Screen
 
     @Serializable
+    data object Home : Screen
+    @Serializable
     data object Feed : Screen
     @Serializable
-    data object Vacancy : Screen
+    data class Vacancy(val vacancyId: String) : Screen
 
     @Serializable
     data object Favorite : Screen

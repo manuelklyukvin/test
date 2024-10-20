@@ -23,6 +23,6 @@ class CodeViewModel @Inject constructor() : ViewModel() {
     }
 
     private fun onContinueButtonClicked(navigationState: NavigationState) {
-        navigationState.navigate(Screen.Feed)
+        navigationState.navigate(Screen.Home)
     }
 }

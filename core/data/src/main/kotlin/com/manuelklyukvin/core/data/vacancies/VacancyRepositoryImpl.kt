@@ -1,12 +1,12 @@
-package com.manuelklyukvin.feed.data.vacancy
+package com.manuelklyukvin.core.data.vacancies
 
 import com.google.gson.Gson
+import com.manuelklyukvin.core.data.vacancies.models.DataVacancyResponse
+import com.manuelklyukvin.core.data.vacancies.models.toDomain
 import com.manuelklyukvin.core.domain.database.GetDatabaseUseCase
 import com.manuelklyukvin.core.domain.result.Result
-import com.manuelklyukvin.feed.data.vacancy.models.DataVacancyResponse
-import com.manuelklyukvin.feed.data.vacancy.models.toDomain
-import com.manuelklyukvin.feed.domain.vacancy.VacancyRepository
-import com.manuelklyukvin.feed.domain.vacancy.model.DomainVacancy
+import com.manuelklyukvin.core.domain.vacancies.VacancyRepository
+import com.manuelklyukvin.core.domain.vacancies.model.DomainVacancy
 
 class VacancyRepositoryImpl(private val getDatabaseUseCase: GetDatabaseUseCase) : VacancyRepository {
 

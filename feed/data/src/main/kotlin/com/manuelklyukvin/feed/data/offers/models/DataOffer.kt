@@ -1,7 +1,7 @@
-package com.manuelklyukvin.feed.data.offer.models
+package com.manuelklyukvin.feed.data.offers.models
 
-import com.manuelklyukvin.feed.domain.offer.model.DomainButton
-import com.manuelklyukvin.feed.domain.offer.model.DomainOffer
+import com.manuelklyukvin.feed.domain.offers.model.DomainButton
+import com.manuelklyukvin.feed.domain.offers.model.DomainOffer
 
 data class DataOffer(
     val id: String?,

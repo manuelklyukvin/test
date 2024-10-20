@@ -45,8 +45,12 @@ fun AppScreen() {
                 feedScreen = {
                     val viewModel = hiltViewModel<FeedViewModel>()
                     val state by viewModel.state.collectAsState()
+                    val onEvent = viewModel::onEvent
 
-                    FeedScreen(state)
+                    FeedScreen(state, onEvent)
+                },
+                vacancyScreen = { vacancyId ->
+
                 }
             )
         }
