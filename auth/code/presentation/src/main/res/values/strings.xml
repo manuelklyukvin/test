@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="code_title">Отправили код на %s</string>
+    <string name="code_subtitle">Напишите его, чтобы подтвердить, что это вы, а не кто-то другой входит в личный кабинет</string>
+    <string name="code_input_hint">*</string>
+    <string name="code_button">Подтвердить</string>
+</resources>

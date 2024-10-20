@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Test" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">#000</item>
+        <item name="android:navigationBarColor">#000</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+    <style name="Theme.Test.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_screen</item>
+        <item name="windowSplashScreenBackground">@color/gray</item>
+        <item name="postSplashScreenTheme">@style/Theme.Test</item>
+        <item name="android:statusBarColor">@color/gray</item>
+        <item name="android:navigationBarColor">@color/gray</item>
+    </style>
+</resources>
