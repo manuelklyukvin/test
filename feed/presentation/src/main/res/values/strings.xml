@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="feed_search_hint">Должность, ключевые слова</string>
+
+    <string name="feed_vacancies">Вакансии для вас</string>
+
+    <string name="feed_vacancy_looking_number">Сейчас просматривает %d человек</string>
+    <string name="feed_vacancy_reply">Откликнуться</string>
 </resources>

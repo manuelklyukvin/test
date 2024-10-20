@@ -13,24 +13,22 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.manuelklyukvin.core.presentation.components.AppButton
 import com.manuelklyukvin.core.presentation.components.AppCard
 import com.manuelklyukvin.core.presentation.components.AppTextField
 import com.manuelklyukvin.core.presentation.theme.AppTheme
 import com.manuelklyukvin.core.presentation.theme.LocalNavigationState
 import com.manuelklyukvin.sign_in.presentation.R
+import com.manuelklyukvin.sign_in.presentation.screen.models.SignInEvent
+import com.manuelklyukvin.sign_in.presentation.screen.models.SignInState
 
 @Composable
-fun SignInScreen(viewModel: SignInViewModel = hiltViewModel()) {
+fun SignInScreen(state: SignInState, onEvent: (SignInEvent) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -44,16 +42,26 @@ fun SignInScreen(viewModel: SignInViewModel = hiltViewModel()) {
             style = AppTheme.typography.title2,
             color = AppTheme.colorScheme.white
         )
-        Spacer(modifier = Modifier.height(144.dp))
-        WorkerForm(viewModel)
+        Spacer(modifier = Modifier.height(AppTheme.shapes.paddingMedium))
+        Forms(state, onEvent)
+    }
+}
+
+@Composable
+private fun Forms(state: SignInState, onEvent: (SignInEvent) -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+    ) {
+        WorkerForm(state, onEvent)
         Spacer(modifier = Modifier.height(AppTheme.shapes.paddingMedium))
         EmployerForm()
     }
 }
 
 @Composable
-private fun WorkerForm(viewModel: SignInViewModel) {
-    val emailState by viewModel.emailState.collectAsState()
+private fun WorkerForm(state: SignInState, onEvent: (SignInEvent) -> Unit) {
+    val emailState = state.emailState
     val isContinueButtonEnabled = emailState.text.isNotEmpty()
 
     val navigationState = LocalNavigationState.current
@@ -89,7 +97,7 @@ private fun WorkerForm(viewModel: SignInViewModel) {
                 text = stringResource(R.string.sign_in_worker_form_continue_button),
                 isEnabled = isContinueButtonEnabled,
                 onClick = {
-                    viewModel.onContinueButtonClicked(navigationState)
+                    onEvent(SignInEvent.OnContinueButtonClicked(navigationState))
                 }
             )
             Spacer(modifier = Modifier.width(AppTheme.shapes.paddingLarge))
@@ -136,7 +144,6 @@ private fun EmployerForm() {
     }
 }
 
-// Использую MVVM, а не MVI, поэтому превью по-дурацки сделан
 @Preview
 @Composable
 private fun SignInScreenPreview() {
@@ -145,7 +152,10 @@ private fun SignInScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = AppTheme.colorScheme.black
         ) {
-            SignInScreen(viewModel = SignInViewModel())
+            SignInScreen(
+                state = SignInState(),
+                onEvent = {  }
+            )
         }
     }
 }

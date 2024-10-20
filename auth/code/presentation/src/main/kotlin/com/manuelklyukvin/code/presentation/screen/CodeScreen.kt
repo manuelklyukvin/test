@@ -10,14 +10,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.manuelklyukvin.code.presentation.R
+import com.manuelklyukvin.code.presentation.screen.models.CodeEvent
+import com.manuelklyukvin.code.presentation.screen.models.CodeState
 import com.manuelklyukvin.code.presentation.utils.CodeTextField
 import com.manuelklyukvin.core.presentation.components.AppButton
 import com.manuelklyukvin.core.presentation.theme.AppTheme
@@ -25,7 +25,8 @@ import com.manuelklyukvin.core.presentation.theme.LocalNavigationState
 
 @Composable
 fun CodeScreen(
-    viewModel: CodeViewModel = hiltViewModel(),
+    state: CodeState,
+    onEvent: (CodeEvent) -> Unit,
     email: String
 ) {
     Column(
@@ -45,16 +46,13 @@ fun CodeScreen(
             style = AppTheme.typography.title3,
             color = AppTheme.colorScheme.white
         )
-        CodeInput(viewModel)
+        CodeInput(state, onEvent)
     }
 }
 
 @Composable
-private fun CodeInput(viewModel: CodeViewModel) {
-    val codeNumbers = viewModel.codeNumbers.map {
-        it.collectAsState().value
-    }
-
+private fun CodeInput(state: CodeState, onEvent: (CodeEvent) -> Unit) {
+    val codeNumbers = state.codeNumbers
     val navigationState = LocalNavigationState.current
 
     val isContinueButtonEnabled = codeNumbers.all {
@@ -78,7 +76,7 @@ private fun CodeInput(viewModel: CodeViewModel) {
         isEnabled = isContinueButtonEnabled,
         textStyle = AppTheme.typography.buttonText1,
         onClick = {
-            viewModel.onContinueButtonClicked(navigationState)
+            onEvent(CodeEvent.OnContinueButtonClicked(navigationState))
         }
     )
 }
@@ -92,8 +90,9 @@ private fun CodeScreenPreview() {
             color = AppTheme.colorScheme.black
         ) {
             CodeScreen(
-                email = "example@gmail.com",
-                viewModel = CodeViewModel()
+                state = CodeState(),
+                onEvent = {  },
+                email = "example@gmail.com"
             )
         }
     }

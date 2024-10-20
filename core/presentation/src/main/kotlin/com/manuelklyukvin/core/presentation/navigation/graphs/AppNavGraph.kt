@@ -3,7 +3,6 @@ package com.manuelklyukvin.core.presentation.navigation.graphs
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
 import com.manuelklyukvin.core.presentation.components.AppScaffold
 import com.manuelklyukvin.core.presentation.navigation.Screen
 import com.manuelklyukvin.core.presentation.theme.LocalNavigationState
@@ -23,15 +22,19 @@ fun AppNavGraph(
         popEnterTransition = Animations.enterTransition,
         popExitTransition = Animations.exitTransition
     ) {
-        composable<Screen.SignIn> {
-            signInScreen()
-        }
-        composable<Screen.Code> {
-            val email = it.toRoute<Screen.Code>().email
-            codeScreen(email)
-        }
+        authNavGraph(
+            signInScreen = {
+                signInScreen()
+            },
+            codeScreen = { email ->
+                codeScreen(email)
+            }
+        )
         composable<Screen.Feed> {
             feedScreen()
+        }
+        composable<Screen.Vacancy> {
+
         }
         composable<Screen.Favorite> {
             AppScaffold {  }

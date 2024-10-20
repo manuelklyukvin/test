@@ -5,12 +5,17 @@ import kotlinx.serialization.Serializable
 sealed interface Screen {
 
     @Serializable
+    data object Auth : Screen
+    @Serializable
     data object SignIn : Screen
     @Serializable
     data class Code(val email: String) : Screen
 
     @Serializable
     data object Feed : Screen
+    @Serializable
+    data object Vacancy : Screen
+
     @Serializable
     data object Favorite : Screen
     @Serializable

@@ -23,6 +23,9 @@ fun DependencyHandler.androidx() {
 fun DependencyHandler.hilt() {
     implementation(Dependencies.HILT)
     ksp(Dependencies.HILT_COMPILER)
+}
+
+fun DependencyHandler.hiltNavigation() {
     implementation(Dependencies.HILT_NAVIGATION)
 }
 

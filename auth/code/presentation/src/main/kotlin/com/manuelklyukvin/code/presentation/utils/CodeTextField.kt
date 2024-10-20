@@ -33,6 +33,8 @@ fun CodeTextField(state: TextFieldState) {
         }
     }
 
+    val textStyle = AppTheme.typography.title2
+
     BasicTextField(
         modifier = Modifier
             .size(AppTheme.shapes.sizeExtraLarge)
@@ -42,7 +44,7 @@ fun CodeTextField(state: TextFieldState) {
             )
             .padding(horizontal = AppTheme.shapes.paddingMedium),
         state = state,
-        textStyle = AppTheme.typography.title2.copy(
+        textStyle = textStyle.copy(
             color = AppTheme.colorScheme.white
         ),
         lineLimits = TextFieldLineLimits.SingleLine,
@@ -54,7 +56,7 @@ fun CodeTextField(state: TextFieldState) {
                 if (state.text.isEmpty()) {
                     Text(
                         text = stringResource(R.string.code_input_hint),
-                        style = AppTheme.typography.title2,
+                        style = textStyle,
                         color = AppTheme.colorScheme.gray3
                     )
                 }

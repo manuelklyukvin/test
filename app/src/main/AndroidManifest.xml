@@ -5,7 +5,6 @@
     <application
         android:name="com.manuelklyukvin.test.di.App"
         android:icon="@mipmap/icon"
-        android:roundIcon="@mipmap/icon"
         android:label="@string/app_name"
         android:theme="@style/Theme.Test"
         android:enableOnBackInvokedCallback="true"

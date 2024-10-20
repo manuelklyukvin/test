@@ -2,6 +2,7 @@ import configs.GradleNamespaces
 import configs.GradleVersions
 import dependencies.androidx
 import dependencies.hilt
+import dependencies.hiltNavigation
 import dependencies.splashScreen
 import modules.codePresentation
 import modules.corePresentation
@@ -42,6 +43,7 @@ android {
 dependencies {
     androidx()
     hilt()
+    hiltNavigation()
     splashScreen()
 
     corePresentation()

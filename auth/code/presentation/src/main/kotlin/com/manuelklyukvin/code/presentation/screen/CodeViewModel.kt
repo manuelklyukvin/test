@@ -1,7 +1,8 @@
 package com.manuelklyukvin.code.presentation.screen
 
-import androidx.compose.foundation.text.input.TextFieldState
 import androidx.lifecycle.ViewModel
+import com.manuelklyukvin.code.presentation.screen.models.CodeEvent
+import com.manuelklyukvin.code.presentation.screen.models.CodeState
 import com.manuelklyukvin.core.presentation.navigation.NavigationState
 import com.manuelklyukvin.core.presentation.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,15 +14,15 @@ import javax.inject.Inject
 @HiltViewModel
 class CodeViewModel @Inject constructor() : ViewModel() {
 
-    private val _codeNumbers = List(4) {
-        MutableStateFlow(TextFieldState())
-    }
-    val codeNumbers: List<StateFlow<TextFieldState>>
-        get() = _codeNumbers.map {
-            it.asStateFlow()
-        }
+    private val _state = MutableStateFlow(CodeState())
+    val state: StateFlow<CodeState>
+        get() = _state.asStateFlow()
 
-    fun onContinueButtonClicked(navigationState: NavigationState) {
+    fun onEvent(event: CodeEvent) = when (event) {
+        is CodeEvent.OnContinueButtonClicked -> onContinueButtonClicked(event.navigationState)
+    }
+
+    private fun onContinueButtonClicked(navigationState: NavigationState) {
         navigationState.navigate(Screen.Feed)
     }
 }
