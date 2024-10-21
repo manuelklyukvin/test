@@ -15,12 +15,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.manuelklyukvin.core.presentation.components.AppButton
 import com.manuelklyukvin.core.presentation.components.AppCard
@@ -57,8 +55,8 @@ private fun OffersBlock(state: FeedState) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingMedium)
         ) {
-            items(offerList) {
-                offer -> OfferCard(offer)
+            items(offerList) { offer ->
+                OfferCard(offer)
             }
         }
         Spacer(modifier = Modifier.height(AppTheme.shapes.paddingExtraLarge))
@@ -97,9 +95,9 @@ private fun OfferCardDetails(offer: Offer) {
         style = AppTheme.typography.title4,
         color = AppTheme.colorScheme.white
     )
-    if (offer.buttonText != null) {
+    offer.buttonText?.let {
         Text(
-            text = offer.buttonText,
+            text = it,
             style = AppTheme.typography.text1,
             color = AppTheme.colorScheme.green
         )
@@ -143,23 +141,9 @@ private fun ShowMoreVacanciesButton(state: FeedState, onEvent: (FeedEvent) -> Un
             onClick = {
                 onEvent(FeedEvent.OnShowMoreVacanciesButtonClicked)
             },
-            text = stringResource(R.string.feed_show_more_vacancies_button, vacancyCount - VACANCY_TO_SHOW_COUNT)
+            text = stringResource(R.string.feed_show_more_vacancies_button, vacancyCount - VACANCY_TO_SHOW_COUNT),
+            textStyle = AppTheme.typography.buttonText1
         )
-    }
-}
-
-@Preview
-@Composable
-private fun FeedPreviewScreenPreview() {
-    AppTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = AppTheme.colorScheme.black
-        ) {
-            FeedScreen(
-                state = FeedState(),
-                onEvent = {  }
-            )
-        }
+        Spacer(modifier = Modifier.height(AppTheme.shapes.paddingMedium))
     }
 }

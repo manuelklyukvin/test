@@ -6,10 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.manuelklyukvin.core.presentation.theme.AppTheme
 import com.manuelklyukvin.feed.presentation.screen.models.FeedEvent
 import com.manuelklyukvin.feed.presentation.screen.models.FeedState
@@ -41,22 +39,6 @@ private fun VacanciesBlock(state: FeedState, onEvent: (FeedEvent) -> Unit) {
             vacancyList.forEach { vacancy ->
                 VacancyCard(vacancy, onEvent)
             }
-        }
-    }
-}
-
-@Preview
-@Composable
-private fun FeedFullScreenPreview() {
-    AppTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = AppTheme.colorScheme.black
-        ) {
-            FeedScreen(
-                state = FeedState(),
-                onEvent = {  }
-            )
         }
     }
 }

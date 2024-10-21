@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -33,6 +34,7 @@ import com.manuelklyukvin.core.presentation.utils.noIndicationClickable
 import com.manuelklyukvin.core.vacancies.models.Vacancy
 import com.manuelklyukvin.feed.presentation.R
 import com.manuelklyukvin.feed.presentation.screen.models.FeedEvent
+import com.manuelklyukvin.core.presentation.R as CoreR
 
 @Composable
 fun VacancyCard(vacancy: Vacancy, onEvent: (FeedEvent) -> Unit) {
@@ -42,7 +44,10 @@ fun VacancyCard(vacancy: Vacancy, onEvent: (FeedEvent) -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .noIndicationClickable {
-                onEvent(FeedEvent.OnVacancyClicked(vacancy.id, navigationState))
+                onEvent(FeedEvent.OnVacancyClicked(
+                    vacancyId = vacancy.id,
+                    navigationState = navigationState
+                ))
             },
         paddingValues = PaddingValues(AppTheme.shapes.paddingMedium)
     ) {
@@ -120,7 +125,7 @@ private fun EmployerDetails(vacancy: Vacancy) {
                 )
                 Spacer(modifier = Modifier.width(AppTheme.shapes.paddingExtraSmall))
                 AppIcon(
-                    painter = painterResource(R.drawable.verified),
+                    painter = painterResource(CoreR.drawable.verified),
                     tint = AppTheme.colorScheme.gray3
                 )
             }
@@ -154,7 +159,7 @@ private fun VacancyLikeButton(vacancy: Vacancy) {
     val tint: Color
 
     if (isFavorite) {
-        painter = painterResource(R.drawable.favorite_enabled)
+        painter = painterResource(CoreR.drawable.favorite_enabled)
         tint = AppTheme.colorScheme.blue
     } else {
         painter = painterResource(com.manuelklyukvin.core.presentation.R.drawable.favorite)
@@ -168,6 +173,7 @@ private fun VacancyLikeButton(vacancy: Vacancy) {
         }
     ) {
         AppIcon(
+            modifier = Modifier.fillMaxSize(),
             painter = painter,
             tint = tint
         )

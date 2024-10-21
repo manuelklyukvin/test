@@ -16,8 +16,8 @@ android {
 }
 
 dependencies {
-    feedDomain()
-
     serialization()
     gson()
+
+    feedDomain()
 }

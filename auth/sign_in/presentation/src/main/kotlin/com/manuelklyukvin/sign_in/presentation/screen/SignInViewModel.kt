@@ -20,9 +20,16 @@ class SignInViewModel @Inject constructor() : ViewModel() {
 
     fun onEvent(event: SignInEvent) = when (event) {
         is SignInEvent.OnContinueButtonClicked -> onContinueButtonClicked(event.navigationState)
+        SignInEvent.OnEmailStateUpdated -> onEmailStateUpdated()
     }
 
     private fun onContinueButtonClicked(navigationState: NavigationState) {
         navigationState.navigate(Screen.Code(state.value.emailState.text.toString()))
+    }
+
+    private fun onEmailStateUpdated() {
+        _state.value = state.value.copy(
+            isContinueButtonEnabled = state.value.emailState.text.isNotEmpty()
+        )
     }
 }

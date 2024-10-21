@@ -5,4 +5,5 @@ import com.manuelklyukvin.core.presentation.navigation.NavigationState
 sealed interface SignInEvent {
 
     data class OnContinueButtonClicked(val navigationState: NavigationState) : SignInEvent
+    data object OnEmailStateUpdated : SignInEvent
 }

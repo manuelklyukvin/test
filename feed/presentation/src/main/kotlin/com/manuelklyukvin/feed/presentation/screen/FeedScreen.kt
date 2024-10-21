@@ -5,24 +5,21 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.manuelklyukvin.core.presentation.components.AppIcon
 import com.manuelklyukvin.core.presentation.components.AppScaffold
 import com.manuelklyukvin.core.presentation.components.AppTextField
+import com.manuelklyukvin.core.presentation.components.LoadingScreen
 import com.manuelklyukvin.core.presentation.theme.AppTheme
 import com.manuelklyukvin.feed.presentation.R
 import com.manuelklyukvin.feed.presentation.screen.models.FeedEvent
@@ -46,9 +43,10 @@ fun FeedScreen(state: FeedState, onEvent: (FeedEvent) -> Unit) {
     ) {
         when (viewState) {
             FeedViewState.INITIAL -> Unit
-            FeedViewState.LOADING -> Loading()
+            FeedViewState.LOADING -> LoadingScreen()
             FeedViewState.PREVIEW -> FeedPreviewScreen(state, onEvent)
             FeedViewState.FULL -> FeedFullScreen(state, onEvent)
+            FeedViewState.ERROR -> Unit
         }
     }
 }
@@ -137,7 +135,7 @@ private fun MapButton() {
     ) {
         AppIcon(
             modifier = Modifier.size(AppTheme.shapes.sizeSmall),
-            painter = painterResource(R.drawable.map)
+            painter = painterResource(R.drawable.map_button)
         )
         Spacer(modifier = Modifier.width(AppTheme.shapes.paddingSmall))
         Text(
@@ -145,34 +143,5 @@ private fun MapButton() {
             style = AppTheme.typography.title3,
             color = AppTheme.colorScheme.white
         )
-    }
-}
-
-@Composable
-private fun Loading() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator(
-            modifier = Modifier.size(AppTheme.shapes.sizeMedium),
-            color = AppTheme.colorScheme.green
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun FeedScreenPreview() {
-    AppTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = AppTheme.colorScheme.black
-        ) {
-            FeedScreen(
-                state = FeedState(),
-                onEvent = {  }
-            )
-        }
     }
 }

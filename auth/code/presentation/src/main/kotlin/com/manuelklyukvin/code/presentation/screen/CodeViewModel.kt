@@ -20,9 +20,18 @@ class CodeViewModel @Inject constructor() : ViewModel() {
 
     fun onEvent(event: CodeEvent) = when (event) {
         is CodeEvent.OnContinueButtonClicked -> onContinueButtonClicked(event.navigationState)
+        CodeEvent.OnCodeStateUpdated -> onCodeStateUpdated()
     }
 
     private fun onContinueButtonClicked(navigationState: NavigationState) {
         navigationState.navigate(Screen.Home)
+    }
+
+    private fun onCodeStateUpdated() {
+        _state.value = state.value.copy(
+            isContinueButtonEnabled = state.value.codeNumbers.all {
+                it.text.isNotEmpty()
+            }
+        )
     }
 }

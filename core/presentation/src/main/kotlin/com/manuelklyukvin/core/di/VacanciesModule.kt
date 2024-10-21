@@ -4,6 +4,7 @@ import com.manuelklyukvin.core.data.vacancies.VacancyRepositoryImpl
 import com.manuelklyukvin.core.domain.database.GetDatabaseUseCase
 import com.manuelklyukvin.core.domain.vacancies.FormatPublishedDateUseCase
 import com.manuelklyukvin.core.domain.vacancies.GetVacanciesUseCase
+import com.manuelklyukvin.core.domain.vacancies.GetVacancyByIdUseCase
 import com.manuelklyukvin.core.domain.vacancies.VacancyRepository
 import dagger.Module
 import dagger.Provides
@@ -20,7 +21,22 @@ object VacanciesModule {
     }
 
     @Provides
-    fun provideGetVacanciesUseCase(vacancyRepository: VacancyRepository) = GetVacanciesUseCase(vacancyRepository)
+    fun provideGetVacanciesUseCase(
+        vacancyRepository: VacancyRepository,
+        formatPublishedDateUseCase: FormatPublishedDateUseCase
+    ) = GetVacanciesUseCase(
+        vacancyRepository = vacancyRepository,
+        formatPublishedDateUseCase = formatPublishedDateUseCase
+    )
+
+    @Provides
+    fun provideGetVacancyByIdUseCase(
+        vacancyRepository: VacancyRepository,
+        formatPublishedDateUseCase: FormatPublishedDateUseCase
+    ) = GetVacancyByIdUseCase(
+        vacancyRepository = vacancyRepository,
+        formatPublishedDateUseCase = formatPublishedDateUseCase
+    )
 
     @Provides
     fun provideFormatPublishedDateUseCase() = FormatPublishedDateUseCase()

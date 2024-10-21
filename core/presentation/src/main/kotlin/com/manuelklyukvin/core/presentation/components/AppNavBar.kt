@@ -48,8 +48,7 @@ fun AppNavBar() {
             AppNavBarItem(
                 icon = painterResource(id = R.drawable.search),
                 label = stringResource(id = R.string.core_nav_bar_search),
-                route = Screen.Home,
-                mainRoute = Screen.Feed
+                route = Screen.Home
             )
             AppNavBarItem(
                 icon = painterResource(id = R.drawable.favorite),
@@ -79,13 +78,11 @@ fun AppNavBar() {
 private fun AppNavBarItem(
     icon: Painter,
     label: String,
-    route: Any,
-    mainRoute: Any? = null
+    route: Any
 ) {
     val navigationState = LocalNavigationState.current
     val navBackStackEntry by navigationState.navController.currentBackStackEntryAsState()
 
-    val currentRoute = navBackStackEntry?.destination?.route
     val isSelected = navBackStackEntry?.destination?.hierarchy?.any {
         it.route?.contains(route.toString()) == true
     } ?: false

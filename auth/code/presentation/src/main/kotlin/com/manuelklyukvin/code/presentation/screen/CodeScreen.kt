@@ -10,6 +10,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -52,18 +56,25 @@ fun CodeScreen(
 
 @Composable
 private fun CodeInput(state: CodeState, onEvent: (CodeEvent) -> Unit) {
-    val codeNumbers = state.codeNumbers
+    val codeNumbersText by remember {
+        derivedStateOf {
+            state.codeNumbers.map { codeNumber ->
+                codeNumber.text
+            }
+        }
+    }
+
     val navigationState = LocalNavigationState.current
 
-    val isContinueButtonEnabled = codeNumbers.all {
-        it.text.isNotEmpty()
+    LaunchedEffect(codeNumbersText) {
+        onEvent(CodeEvent.OnCodeStateUpdated)
     }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingExtraSmall)
     ) {
-        for (number in codeNumbers) {
+        for (number in state.codeNumbers) {
             CodeTextField(number)
         }
     }
@@ -73,7 +84,7 @@ private fun CodeInput(state: CodeState, onEvent: (CodeEvent) -> Unit) {
             .fillMaxWidth()
             .height(AppTheme.shapes.sizeExtraLarge),
         text = stringResource(R.string.code_button),
-        isEnabled = isContinueButtonEnabled,
+        isEnabled = state.isContinueButtonEnabled,
         textStyle = AppTheme.typography.buttonText1,
         onClick = {
             onEvent(CodeEvent.OnContinueButtonClicked(navigationState))

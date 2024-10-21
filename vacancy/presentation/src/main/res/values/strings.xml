@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vacancy_experience">Требуемый опыт: %s</string>
+
+    <string name="vacancy_replies">%d человек уже откликнулсь</string>
+    <string name="vacancy_looking_number">%d человека сейчас смотрят</string>
+
+    <string name="vacancy_responsibilities">Ваши задачи</string>
+
+    <string name="vacancy_questions_title">Задайте вопрос работодателю</string>
+    <string name="vacancy_questions_subtitle">Он получит его с откликом на вакансию</string>
+
+    <string name="vacancy_reply_button">Откликнуться</string>
+</resources>

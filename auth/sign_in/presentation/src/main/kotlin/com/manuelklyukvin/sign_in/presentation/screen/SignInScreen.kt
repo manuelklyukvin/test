@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -61,10 +62,11 @@ private fun Forms(state: SignInState, onEvent: (SignInEvent) -> Unit) {
 
 @Composable
 private fun WorkerForm(state: SignInState, onEvent: (SignInEvent) -> Unit) {
-    val emailState = state.emailState
-    val isContinueButtonEnabled = emailState.text.isNotEmpty()
-
     val navigationState = LocalNavigationState.current
+
+    LaunchedEffect(state.emailState.text) {
+        onEvent(SignInEvent.OnEmailStateUpdated)
+    }
 
     AppCard(
         modifier = Modifier.fillMaxWidth(),
@@ -83,7 +85,7 @@ private fun WorkerForm(state: SignInState, onEvent: (SignInEvent) -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(AppTheme.shapes.sizeLarge),
-            state = emailState,
+            state = state.emailState,
             keyboardType = KeyboardType.Email
         )
         Row(
@@ -95,7 +97,7 @@ private fun WorkerForm(state: SignInState, onEvent: (SignInEvent) -> Unit) {
                     .weight(1f)
                     .height(AppTheme.shapes.sizeLarge),
                 text = stringResource(R.string.sign_in_worker_form_continue_button),
-                isEnabled = isContinueButtonEnabled,
+                isEnabled = state.isContinueButtonEnabled,
                 onClick = {
                     onEvent(SignInEvent.OnContinueButtonClicked(navigationState))
                 }

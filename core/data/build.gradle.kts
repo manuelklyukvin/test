@@ -29,7 +29,7 @@ android {
 
 dependencies {
     androidxCore()
-    coreDomain()
-
     gson()
+
+    coreDomain()
 }

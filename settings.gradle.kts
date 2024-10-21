@@ -42,3 +42,9 @@ include(
     ":feed:domain",
     ":feed:data"
 )
+include(
+    ":vacancy",
+    ":vacancy:presentation",
+    ":vacancy:domain",
+    ":vacancy:data"
+)

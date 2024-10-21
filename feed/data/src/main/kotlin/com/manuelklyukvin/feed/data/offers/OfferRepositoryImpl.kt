@@ -10,13 +10,20 @@ import com.manuelklyukvin.feed.domain.offers.model.DomainOffer
 
 class OfferRepositoryImpl(private val getDatabaseUseCase: GetDatabaseUseCase) : OfferRepository {
 
+    private var cachedDomainOfferList: List<DomainOffer>? = null
+
     override suspend fun getOffers(): Result<List<DomainOffer>, String?> {
+        cachedDomainOfferList?.let {
+            return Result.Success(it)
+        }
+
         return try {
             val database = getDatabaseUseCase()
             val dataOfferResponse = parseOfferResponse(database)
             val domainOfferList = dataOfferResponse.dataOfferList.map { dataOffer ->
                 dataOffer.toDomain()
             }
+            cachedDomainOfferList = domainOfferList
             Result.Success(domainOfferList)
         } catch (e: Exception) {
             Result.Error(e.localizedMessage)

@@ -3,6 +3,7 @@ package com.manuelklyukvin.test.screen
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -15,6 +16,9 @@ import com.manuelklyukvin.feed.presentation.screen.FeedScreen
 import com.manuelklyukvin.feed.presentation.screen.FeedViewModel
 import com.manuelklyukvin.sign_in.presentation.screen.SignInScreen
 import com.manuelklyukvin.sign_in.presentation.screen.SignInViewModel
+import com.manuelklyukvin.vacancy.presentation.screen.VacancyScreen
+import com.manuelklyukvin.vacancy.presentation.screen.VacancyViewModel
+import com.manuelklyukvin.vacancy.presentation.screen.models.VacancyEvent
 
 @Composable
 fun AppScreen() {
@@ -50,7 +54,15 @@ fun AppScreen() {
                     FeedScreen(state, onEvent)
                 },
                 vacancyScreen = { vacancyId ->
+                    val viewModel = hiltViewModel<VacancyViewModel>()
+                    val state by viewModel.state.collectAsState()
+                    val onEvent = viewModel::onEvent
 
+                    LaunchedEffect(vacancyId) {
+                        onEvent(VacancyEvent.OnScreenInit(vacancyId))
+                    }
+
+                    VacancyScreen(state, onEvent,)
                 }
             )
         }

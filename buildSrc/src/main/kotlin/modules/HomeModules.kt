@@ -9,3 +9,5 @@ fun DependencyHandler.feedPresentation() = implementation(project(":feed:present
 fun DependencyHandler.feedDomain() = implementation(project(":feed:domain"))
 
 fun DependencyHandler.feedData() = implementation(project(":feed:data"))
+
+fun DependencyHandler.vacancyPresentation() = implementation(project(":vacancy:presentation"))

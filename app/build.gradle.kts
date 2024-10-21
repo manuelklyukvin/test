@@ -8,6 +8,7 @@ import modules.codePresentation
 import modules.corePresentation
 import modules.feedPresentation
 import modules.signInPresentation
+import modules.vacancyPresentation
 
 plugins {
     id("com.android.application")
@@ -52,4 +53,5 @@ dependencies {
     codePresentation()
 
     feedPresentation()
+    vacancyPresentation()
 }
