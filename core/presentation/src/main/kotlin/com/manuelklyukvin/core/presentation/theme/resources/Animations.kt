@@ -17,5 +17,5 @@ internal object Animations {
         fadeOut(animationSpec = tween(TRANSITION_TIME))
     }
 
-    private const val TRANSITION_TIME = 100
+    private const val TRANSITION_TIME = 500
 }

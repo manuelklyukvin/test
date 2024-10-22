@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,6 +39,7 @@ import com.manuelklyukvin.vacancy.presentation.R
 import com.manuelklyukvin.vacancy.presentation.screen.models.VacancyEvent
 import com.manuelklyukvin.vacancy.presentation.screen.models.VacancyState
 import com.manuelklyukvin.vacancy.presentation.screen.models.VacancyViewState
+import com.manuelklyukvin.vacancy.presentation.utils.VacancyTopBarButton
 import com.manuelklyukvin.core.presentation.R as CoreR
 
 @Composable
@@ -73,7 +73,7 @@ private fun TopBar(state: VacancyState, onEvent: (VacancyEvent) -> Unit) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        IconButtonWithIcon(
+        VacancyTopBarButton(
             icon = painterResource(R.drawable.arrow_back),
             onClick = {
                 onEvent(VacancyEvent.OnBackButtonClicked(navigationState))
@@ -100,32 +100,14 @@ private fun ActionPanel(state: VacancyState, onEvent: (VacancyEvent) -> Unit) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingMedium)
     ) {
-        IconButtonWithIcon(icon = painterResource(R.drawable.eye))
-        IconButtonWithIcon(icon = painterResource(R.drawable.share))
-        IconButtonWithIcon(
+        VacancyTopBarButton(icon = painterResource(R.drawable.eye))
+        VacancyTopBarButton(icon = painterResource(R.drawable.share))
+        VacancyTopBarButton(
             icon = favoritePainter,
             tint = favoriteTint,
             onClick = {
                 onEvent(VacancyEvent.OnFavoriteButtonClicked)
             }
-        )
-    }
-}
-
-@Composable
-private fun IconButtonWithIcon(
-    icon: Painter,
-    tint: Color = AppTheme.colorScheme.white,
-    onClick: () -> Unit = {  }
-) {
-    IconButton(
-        modifier = Modifier.size(AppTheme.shapes.sizeSmall),
-        onClick = onClick
-    ) {
-        AppIcon(
-            modifier = Modifier.fillMaxSize(),
-            painter = icon,
-            tint = tint
         )
     }
 }
@@ -143,11 +125,11 @@ private fun Content(vacancy: Vacancy) {
         }
         if (vacancy.appliedNumber > 0 || vacancy.lookingNumber > 0) {
             item {
-                RepliesAndLookingNumber(vacancy)
+                UserActivityBlock(vacancy)
             }
         }
         item {
-            Employer(vacancy)
+            EmployerBlock(vacancy)
         }
         vacancy.description?.let {
             item {
@@ -156,12 +138,12 @@ private fun Content(vacancy: Vacancy) {
         }
         if (vacancy.responsibilities.isNotEmpty()) {
             item {
-                Responsibilities(vacancy.responsibilities)
+                ResponsibilitiesBlock(vacancy.responsibilities)
             }
         }
         if (vacancy.questions.isNotEmpty()) {
             item {
-                Questions(vacancy)
+                QuestionsBlock(vacancy)
             }
         }
         item {
@@ -208,19 +190,19 @@ private fun Title(vacancy: Vacancy) {
 }
 
 @Composable
-private fun RepliesAndLookingNumber(vacancy: Vacancy) {
+private fun UserActivityBlock(vacancy: Vacancy) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingExtraSmall)
     ) {
         if (vacancy.appliedNumber > 0) {
-            RepliesAndLookingNumberCard(
-                text = stringResource(R.string.vacancy_replies, vacancy.appliedNumber),
+            UserActivityCard(
+                text = stringResource(R.string.vacancy_applied_number, vacancy.appliedNumber),
                 icon = painterResource(CoreR.drawable.profile)
             )
         }
         if (vacancy.lookingNumber > 0) {
-            RepliesAndLookingNumberCard(
+            UserActivityCard(
                 text = stringResource(R.string.vacancy_looking_number, vacancy.lookingNumber),
                 icon = painterResource(R.drawable.eye)
             )
@@ -229,7 +211,7 @@ private fun RepliesAndLookingNumber(vacancy: Vacancy) {
 }
 
 @Composable
-private fun RowScope.RepliesAndLookingNumberCard(text: String, icon: Painter) {
+private fun RowScope.UserActivityCard(text: String, icon: Painter) {
     Row(
         modifier = Modifier
             .weight(1f)
@@ -264,7 +246,7 @@ private fun RowScope.RepliesAndLookingNumberCard(text: String, icon: Painter) {
 }
 
 @Composable
-private fun Employer(vacancy: Vacancy) {
+private fun EmployerBlock(vacancy: Vacancy) {
     AppCard(
         modifier = Modifier.fillMaxSize(),
         paddingValues = PaddingValues(
@@ -312,7 +294,7 @@ fun Description(description: String) {
 }
 
 @Composable
-private fun Responsibilities(responsibilities: String) {
+private fun ResponsibilitiesBlock(responsibilities: String) {
     Text(
         text = stringResource(R.string.vacancy_responsibilities),
         style = AppTheme.typography.title2,
@@ -328,9 +310,9 @@ private fun Responsibilities(responsibilities: String) {
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun Questions(vacancy: Vacancy) {
-    Spacer(modifier = Modifier.height(AppTheme.shapes.paddingExtraSmall))
+private fun QuestionsBlock(vacancy: Vacancy) {
     Text(
+        modifier = Modifier.padding(top = AppTheme.shapes.paddingExtraSmall),
         text = stringResource(R.string.vacancy_questions_title),
         style = AppTheme.typography.title4,
         color = AppTheme.colorScheme.white
@@ -379,6 +361,7 @@ private fun ReplyButton() {
     AppButton(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(bottom = AppTheme.shapes.paddingMedium)
             .height(AppTheme.shapes.sizeExtraLarge),
         onClick = {  },
         containerColor = AppTheme.colorScheme.green,
@@ -386,5 +369,4 @@ private fun ReplyButton() {
         text = stringResource(R.string.vacancy_reply_button),
         textStyle = AppTheme.typography.buttonText1
     )
-    Spacer(modifier = Modifier.height(AppTheme.shapes.paddingMedium))
 }

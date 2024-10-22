@@ -3,10 +3,10 @@ package com.manuelklyukvin.vacancy.presentation.screen
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.manuelklyukvin.core.domain.result.Result
-import com.manuelklyukvin.core.domain.vacancies.GetVacancyByIdUseCase
+import com.manuelklyukvin.core.domain.result.models.Result
 import com.manuelklyukvin.core.presentation.navigation.NavigationState
 import com.manuelklyukvin.core.vacancies.models.toPresentation
+import com.manuelklyukvin.vacancy.domain.vacancies.GetVacancyByIdUseCase
 import com.manuelklyukvin.vacancy.presentation.screen.models.VacancyEvent
 import com.manuelklyukvin.vacancy.presentation.screen.models.VacancyState
 import com.manuelklyukvin.vacancy.presentation.screen.models.VacancyViewState
@@ -57,8 +57,6 @@ class VacancyViewModel @Inject constructor(
     }
 
     private fun onFavoriteButtonClicked() {
-        _state.value = state.value.copy(
-            isVacancyFavorite = !state.value.isVacancyFavorite
-        )
+        _state.value = state.value.copy(isVacancyFavorite = !state.value.isVacancyFavorite)
     }
 }

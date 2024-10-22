@@ -52,7 +52,7 @@ fun SignInScreen(state: SignInState, onEvent: (SignInEvent) -> Unit) {
 private fun Forms(state: SignInState, onEvent: (SignInEvent) -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Center
     ) {
         WorkerForm(state, onEvent)
         Spacer(modifier = Modifier.height(AppTheme.shapes.paddingMedium))

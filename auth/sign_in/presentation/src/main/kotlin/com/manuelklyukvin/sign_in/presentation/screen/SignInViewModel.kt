@@ -24,12 +24,10 @@ class SignInViewModel @Inject constructor() : ViewModel() {
     }
 
     private fun onContinueButtonClicked(navigationState: NavigationState) {
-        navigationState.navigate(Screen.Code(state.value.emailState.text.toString()))
+        navigationState.navigate(Screen.Code(state.value.emailState.text.trim().toString()))
     }
 
     private fun onEmailStateUpdated() {
-        _state.value = state.value.copy(
-            isContinueButtonEnabled = state.value.emailState.text.isNotEmpty()
-        )
+        _state.value = state.value.copy(isContinueButtonEnabled = state.value.emailState.text.trim().isNotEmpty())
     }
 }

@@ -5,4 +5,8 @@
     <string name="core_nav_bar_replies">Отклики</string>
     <string name="core_nav_bar_messages">Сообщения</string>
     <string name="core_nav_bar_profile">Профиль</string>
+
+    <string name="core_vacancy_looking_number">Сейчас просматривает %d человек</string>
+    <string name="core_vacancy_published_date">Опубликовано %s</string>
+    <string name="core_vacancy_reply">Откликнуться</string>
 </resources>

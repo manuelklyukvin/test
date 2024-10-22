@@ -48,12 +48,12 @@ fun AppNavBar() {
             AppNavBarItem(
                 icon = painterResource(id = R.drawable.search),
                 label = stringResource(id = R.string.core_nav_bar_search),
-                route = Screen.Home
+                route = Screen.SearchBlock
             )
             AppNavBarItem(
                 icon = painterResource(id = R.drawable.favorite),
                 label = stringResource(id = R.string.core_nav_bar_favorite),
-                route = Screen.Favorite
+                route = Screen.FavoriteBlock
             )
             AppNavBarItem(
                 icon = painterResource(id = R.drawable.replies),

@@ -12,8 +12,10 @@ import com.manuelklyukvin.code.presentation.screen.CodeScreen
 import com.manuelklyukvin.code.presentation.screen.CodeViewModel
 import com.manuelklyukvin.core.presentation.navigation.graphs.AppNavGraph
 import com.manuelklyukvin.core.presentation.theme.AppTheme
-import com.manuelklyukvin.feed.presentation.screen.FeedScreen
-import com.manuelklyukvin.feed.presentation.screen.FeedViewModel
+import com.manuelklyukvin.favorite.presentation.screen.FavoriteScreen
+import com.manuelklyukvin.favorite.presentation.screen.FavoriteViewModel
+import com.manuelklyukvin.search.presentation.screen.SearchScreen
+import com.manuelklyukvin.search.presentation.screen.SearchViewModel
 import com.manuelklyukvin.sign_in.presentation.screen.SignInScreen
 import com.manuelklyukvin.sign_in.presentation.screen.SignInViewModel
 import com.manuelklyukvin.vacancy.presentation.screen.VacancyScreen
@@ -46,13 +48,6 @@ fun AppScreen() {
                         email = email
                     )
                 },
-                feedScreen = {
-                    val viewModel = hiltViewModel<FeedViewModel>()
-                    val state by viewModel.state.collectAsState()
-                    val onEvent = viewModel::onEvent
-
-                    FeedScreen(state, onEvent)
-                },
                 vacancyScreen = { vacancyId ->
                     val viewModel = hiltViewModel<VacancyViewModel>()
                     val state by viewModel.state.collectAsState()
@@ -62,7 +57,21 @@ fun AppScreen() {
                         onEvent(VacancyEvent.OnScreenInit(vacancyId))
                     }
 
-                    VacancyScreen(state, onEvent,)
+                    VacancyScreen(state, onEvent)
+                },
+                searchScreen = {
+                    val viewModel = hiltViewModel<SearchViewModel>()
+                    val state by viewModel.state.collectAsState()
+                    val onEvent = viewModel::onEvent
+
+                    SearchScreen(state, onEvent)
+                },
+                favoriteScreen = {
+                    val viewModel = hiltViewModel<FavoriteViewModel>()
+                    val state by viewModel.state.collectAsState()
+                    val onEvent = viewModel::onEvent
+
+                    FavoriteScreen(state, onEvent)
                 }
             )
         }

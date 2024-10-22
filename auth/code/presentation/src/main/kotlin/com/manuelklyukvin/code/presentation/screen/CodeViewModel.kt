@@ -24,7 +24,7 @@ class CodeViewModel @Inject constructor() : ViewModel() {
     }
 
     private fun onContinueButtonClicked(navigationState: NavigationState) {
-        navigationState.navigate(Screen.Home)
+        navigationState.navigate(Screen.SearchBlock)
     }
 
     private fun onCodeStateUpdated() {

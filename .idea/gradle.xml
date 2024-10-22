@@ -31,12 +31,14 @@
             <option value="$PROJECT_DIR$/core/data" />
             <option value="$PROJECT_DIR$/core/domain" />
             <option value="$PROJECT_DIR$/core/presentation" />
-            <option value="$PROJECT_DIR$/feed" />
-            <option value="$PROJECT_DIR$/feed/data" />
-            <option value="$PROJECT_DIR$/feed/domain" />
-            <option value="$PROJECT_DIR$/feed/presentation" />
+            <option value="$PROJECT_DIR$/favorite" />
+            <option value="$PROJECT_DIR$/favorite/domain" />
+            <option value="$PROJECT_DIR$/favorite/presentation" />
+            <option value="$PROJECT_DIR$/search" />
+            <option value="$PROJECT_DIR$/search/data" />
+            <option value="$PROJECT_DIR$/search/domain" />
+            <option value="$PROJECT_DIR$/search/presentation" />
             <option value="$PROJECT_DIR$/vacancy" />
-            <option value="$PROJECT_DIR$/vacancy/data" />
             <option value="$PROJECT_DIR$/vacancy/domain" />
             <option value="$PROJECT_DIR$/vacancy/presentation" />
           </set>

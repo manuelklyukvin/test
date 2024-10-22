@@ -2,7 +2,7 @@
 <resources>
     <string name="vacancy_experience">Требуемый опыт: %s</string>
 
-    <string name="vacancy_replies">%d человек уже откликнулсь</string>
+    <string name="vacancy_applied_number">%d человек уже откликнулись</string>
     <string name="vacancy_looking_number">%d человека сейчас смотрят</string>
 
     <string name="vacancy_responsibilities">Ваши задачи</string>

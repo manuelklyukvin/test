@@ -21,7 +21,7 @@ import com.manuelklyukvin.code.presentation.R
 import com.manuelklyukvin.core.presentation.theme.AppTheme
 
 @Composable
-fun CodeTextField(state: TextFieldState) {
+internal fun CodeTextField(state: TextFieldState) {
     val maxLength = 1
     val valueLength = state.text.length
 

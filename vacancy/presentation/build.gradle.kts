@@ -1,6 +1,7 @@
 import configs.GradleNamespaces
 import dependencies.navigation
 import gradle_plugins.PresentationGradlePlugin
+import modules.vacancyDomain
 
 apply<PresentationGradlePlugin>()
 
@@ -15,4 +16,6 @@ android {
 
 dependencies {
     navigation()
+
+    vacancyDomain()
 }

@@ -6,7 +6,8 @@ import dependencies.hiltNavigation
 import dependencies.splashScreen
 import modules.codePresentation
 import modules.corePresentation
-import modules.feedPresentation
+import modules.favoritePresentation
+import modules.searchPresentation
 import modules.signInPresentation
 import modules.vacancyPresentation
 
@@ -52,6 +53,8 @@ dependencies {
     signInPresentation()
     codePresentation()
 
-    feedPresentation()
+    searchPresentation()
     vacancyPresentation()
+
+    favoritePresentation()
 }

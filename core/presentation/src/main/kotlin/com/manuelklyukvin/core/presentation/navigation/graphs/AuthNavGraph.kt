@@ -11,7 +11,7 @@ fun NavGraphBuilder.authNavGraph(
     signInScreen: @Composable () -> Unit,
     codeScreen: @Composable (String) -> Unit
 ) {
-    navigation<Screen.Auth>(startDestination = Screen.SignIn) {
+    navigation<Screen.AuthBlock>(startDestination = Screen.SignIn) {
         composable<Screen.SignIn> {
             signInScreen()
         }

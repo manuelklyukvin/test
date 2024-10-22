@@ -6,8 +6,8 @@ import java.util.Locale
 
 class FormatPublishedDateUseCase {
 
-    operator fun invoke(dateString: String): String {
-        val date = LocalDate.parse(dateString)
+    operator fun invoke(initialDate: String): String {
+        val date = LocalDate.parse(initialDate)
         val currentYear = LocalDate.now().year
 
         val formatter = DateTimeFormatter.ofPattern("d MMMM", Locale("ru"))

@@ -63,12 +63,12 @@ private fun CodeInput(state: CodeState, onEvent: (CodeEvent) -> Unit) {
             }
         }
     }
-
-    val navigationState = LocalNavigationState.current
-
+    
     LaunchedEffect(codeNumbersText) {
         onEvent(CodeEvent.OnCodeStateUpdated)
     }
+
+    val navigationState = LocalNavigationState.current
 
     Row(
         verticalAlignment = Alignment.CenterVertically,

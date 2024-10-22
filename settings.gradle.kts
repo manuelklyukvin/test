@@ -28,23 +28,31 @@ include(
     ":core:data"
 )
 
+include(":auth")
 include(
-    ":auth",
     ":auth:sign_in",
-    ":auth:code",
+    ":auth:sign_in:presentation"
 )
-include(":auth:sign_in:presentation")
-include(":auth:code:presentation")
-
 include(
-    ":feed",
-    ":feed:presentation",
-    ":feed:domain",
-    ":feed:data"
+    ":auth:code",
+    ":auth:code:presentation"
 )
+
 include(
     ":vacancy",
     ":vacancy:presentation",
-    ":vacancy:domain",
-    ":vacancy:data"
+    ":vacancy:domain"
+)
+
+include(
+    ":search",
+    ":search:presentation",
+    ":search:domain",
+    ":search:data"
+)
+
+include(
+    ":favorite",
+    ":favorite:presentation",
+    ":favorite:domain"
 )

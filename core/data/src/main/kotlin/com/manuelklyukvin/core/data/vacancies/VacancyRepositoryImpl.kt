@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.manuelklyukvin.core.data.vacancies.models.DataVacancyResponse
 import com.manuelklyukvin.core.data.vacancies.models.toDomain
 import com.manuelklyukvin.core.domain.database.GetDatabaseUseCase
-import com.manuelklyukvin.core.domain.result.Result
+import com.manuelklyukvin.core.domain.result.models.Result
 import com.manuelklyukvin.core.domain.vacancies.VacancyRepository
 import com.manuelklyukvin.core.domain.vacancies.model.DomainVacancy
 
@@ -40,6 +40,21 @@ class VacancyRepositoryImpl(private val getDatabaseUseCase: GetDatabaseUseCase) 
             domainVacancy.id == vacancyId
         }
         return vacancy?.let {
+            Result.Success(it)
+        } ?: Result.Error(null)
+    }
+
+    override suspend fun getFavoriteVacancies(): Result<List<DomainVacancy>, String?> {
+        val vacanciesResult = getVacancies()
+        if (vacanciesResult is Result.Error) {
+            return Result.Error(vacanciesResult.error)
+        }
+
+        val favoriteVacancyList = cachedDomainVacancyList?.filter {
+            it.isFavorite
+        }
+
+        return favoriteVacancyList?.let {
             Result.Success(it)
         } ?: Result.Error(null)
     }

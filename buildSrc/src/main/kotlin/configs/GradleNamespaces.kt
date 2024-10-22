@@ -10,7 +10,9 @@ object GradleNamespaces {
     const val SIGN_IN_PRESENTATION = "com.manuelklyukvin.sign_in.presentation"
     const val CODE_PRESENTATION = "com.manuelklyukvin.code.presentation"
 
-    const val FEED_PRESENTATION = "com.manuelklyukvin.feed.presentation"
-    const val FEED_DATA = "com.manuelklyukvin.feed.data"
+    const val SEARCH_PRESENTATION = "com.manuelklyukvin.search.presentation"
+    const val SEARCH_DATA = "com.manuelklyukvin.search.data"
     const val VACANCY_PRESENTATION = "com.manuelklyukvin.vacancy.presentation"
+
+    const val FAVORITE_PRESENTATION = "com.manuelklyukvin.favorite.presentation"
 }
