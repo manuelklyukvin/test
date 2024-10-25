@@ -1,8 +1,8 @@
 package com.manuelklyukvin.sign_in.presentation.screen
 
 import androidx.lifecycle.ViewModel
-import com.manuelklyukvin.core.presentation.navigation.NavigationState
-import com.manuelklyukvin.core.presentation.navigation.Screen
+import com.manuelklyukvin.core.presentation.ui.navigation.NavigationState
+import com.manuelklyukvin.core.presentation.ui.navigation.Screen
 import com.manuelklyukvin.sign_in.presentation.screen.models.SignInEvent
 import com.manuelklyukvin.sign_in.presentation.screen.models.SignInState
 import dagger.hilt.android.lifecycle.HiltViewModel

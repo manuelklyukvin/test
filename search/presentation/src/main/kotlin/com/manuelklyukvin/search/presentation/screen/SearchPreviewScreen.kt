@@ -19,11 +19,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.manuelklyukvin.core.presentation.components.AppButton
-import com.manuelklyukvin.core.presentation.components.AppCard
-import com.manuelklyukvin.core.presentation.theme.AppTheme
-import com.manuelklyukvin.core.presentation.theme.LocalNavigationState
-import com.manuelklyukvin.core.vacancies.VacanciesPreviewBlock
+import com.manuelklyukvin.core.presentation.ui.components.AppButton
+import com.manuelklyukvin.core.presentation.ui.components.AppCard
+import com.manuelklyukvin.core.presentation.ui.theme.AppTheme
+import com.manuelklyukvin.core.presentation.ui.theme.LocalNavigationState
+import com.manuelklyukvin.core.presentation.vacancies.VacanciesPreviewBlock
 import com.manuelklyukvin.search.presentation.R
 import com.manuelklyukvin.search.presentation.screen.models.Offer
 import com.manuelklyukvin.search.presentation.screen.models.SearchEvent

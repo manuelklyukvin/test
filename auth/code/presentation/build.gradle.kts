@@ -9,5 +9,5 @@ plugins {
 }
 
 android {
-    namespace = GradleNamespaces.CODE_PRESENTATION
+    namespace = GradleNamespaces.CODE
 }

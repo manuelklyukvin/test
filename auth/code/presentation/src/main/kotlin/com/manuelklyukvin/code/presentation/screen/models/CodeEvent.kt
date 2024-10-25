@@ -1,6 +1,6 @@
 package com.manuelklyukvin.code.presentation.screen.models
 
-import com.manuelklyukvin.core.presentation.navigation.NavigationState
+import com.manuelklyukvin.core.presentation.ui.navigation.NavigationState
 
 sealed interface CodeEvent {
 

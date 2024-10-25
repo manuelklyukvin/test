@@ -16,7 +16,7 @@ plugins {
 }
 
 android {
-    namespace = GradleNamespaces.CORE_PRESENTATION
+    namespace = GradleNamespaces.CORE
     compileSdk = GradleVersions.COMPILE_SDK
 
     defaultConfig {

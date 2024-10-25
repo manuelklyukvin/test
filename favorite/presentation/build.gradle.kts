@@ -10,7 +10,7 @@ plugins {
 }
 
 android {
-    namespace = GradleNamespaces.FAVORITE_PRESENTATION
+    namespace = GradleNamespaces.FAVORITE
 }
 
 dependencies {

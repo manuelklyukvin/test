@@ -19,11 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import com.manuelklyukvin.core.presentation.components.AppButton
-import com.manuelklyukvin.core.presentation.components.AppCard
-import com.manuelklyukvin.core.presentation.components.AppTextField
-import com.manuelklyukvin.core.presentation.theme.AppTheme
-import com.manuelklyukvin.core.presentation.theme.LocalNavigationState
+import com.manuelklyukvin.core.presentation.ui.components.AppButton
+import com.manuelklyukvin.core.presentation.ui.components.AppCard
+import com.manuelklyukvin.core.presentation.ui.components.AppTextField
+import com.manuelklyukvin.core.presentation.ui.theme.AppTheme
+import com.manuelklyukvin.core.presentation.ui.theme.LocalNavigationState
 import com.manuelklyukvin.sign_in.presentation.R
 import com.manuelklyukvin.sign_in.presentation.screen.models.SignInEvent
 import com.manuelklyukvin.sign_in.presentation.screen.models.SignInState

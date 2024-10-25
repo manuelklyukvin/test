@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import com.manuelklyukvin.code.presentation.R
-import com.manuelklyukvin.core.presentation.theme.AppTheme
+import com.manuelklyukvin.core.presentation.ui.theme.AppTheme
 
 @Composable
 internal fun CodeTextField(state: TextFieldState) {

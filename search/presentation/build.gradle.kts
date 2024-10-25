@@ -11,7 +11,7 @@ plugins {
 }
 
 android {
-    namespace = GradleNamespaces.SEARCH_PRESENTATION
+    namespace = GradleNamespaces.SEARCH
 }
 
 dependencies {

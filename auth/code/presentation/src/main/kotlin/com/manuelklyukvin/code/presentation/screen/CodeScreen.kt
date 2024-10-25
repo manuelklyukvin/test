@@ -23,9 +23,9 @@ import com.manuelklyukvin.code.presentation.R
 import com.manuelklyukvin.code.presentation.screen.models.CodeEvent
 import com.manuelklyukvin.code.presentation.screen.models.CodeState
 import com.manuelklyukvin.code.presentation.utils.CodeTextField
-import com.manuelklyukvin.core.presentation.components.AppButton
-import com.manuelklyukvin.core.presentation.theme.AppTheme
-import com.manuelklyukvin.core.presentation.theme.LocalNavigationState
+import com.manuelklyukvin.core.presentation.ui.components.AppButton
+import com.manuelklyukvin.core.presentation.ui.theme.AppTheme
+import com.manuelklyukvin.core.presentation.ui.theme.LocalNavigationState
 
 @Composable
 fun CodeScreen(

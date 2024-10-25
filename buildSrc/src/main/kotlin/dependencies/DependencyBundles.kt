@@ -4,12 +4,8 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 import utils.implementation
 import utils.ksp
 
-fun DependencyHandler.androidxCore() {
-    implementation(Dependencies.CORE_KTX)
-}
-
 fun DependencyHandler.androidx() {
-    androidxCore()
+    implementation(Dependencies.CORE_KTX)
     implementation(Dependencies.LIFECYCLE_RUNTIME_KTX)
     implementation(Dependencies.ACTIVITY_COMPOSE)
     implementation(platform(Dependencies.COMPOSE_BOM))

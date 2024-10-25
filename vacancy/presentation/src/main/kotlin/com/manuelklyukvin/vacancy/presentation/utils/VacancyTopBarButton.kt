@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import com.manuelklyukvin.core.presentation.components.AppIcon
-import com.manuelklyukvin.core.presentation.theme.AppTheme
+import com.manuelklyukvin.core.presentation.ui.components.AppIcon
+import com.manuelklyukvin.core.presentation.ui.theme.AppTheme
 
 @Composable
 internal fun VacancyTopBarButton(

@@ -10,8 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.manuelklyukvin.code.presentation.screen.CodeScreen
 import com.manuelklyukvin.code.presentation.screen.CodeViewModel
-import com.manuelklyukvin.core.presentation.navigation.graphs.AppNavGraph
-import com.manuelklyukvin.core.presentation.theme.AppTheme
+import com.manuelklyukvin.core.presentation.ui.navigation.graphs.AppNavGraph
+import com.manuelklyukvin.core.presentation.ui.theme.AppTheme
 import com.manuelklyukvin.favorite.presentation.screen.FavoriteScreen
 import com.manuelklyukvin.favorite.presentation.screen.FavoriteViewModel
 import com.manuelklyukvin.search.presentation.screen.SearchScreen

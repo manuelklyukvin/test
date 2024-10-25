@@ -9,5 +9,5 @@ plugins {
 }
 
 android {
-    namespace = GradleNamespaces.SIGN_IN_PRESENTATION
+    namespace = GradleNamespaces.SIGN_IN
 }

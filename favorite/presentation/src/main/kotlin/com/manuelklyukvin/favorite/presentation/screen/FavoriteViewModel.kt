@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.manuelklyukvin.core.domain.result.models.Result
-import com.manuelklyukvin.core.presentation.navigation.NavigationState
-import com.manuelklyukvin.core.presentation.navigation.Screen
-import com.manuelklyukvin.core.vacancies.models.toPresentation
+import com.manuelklyukvin.core.presentation.ui.navigation.NavigationState
+import com.manuelklyukvin.core.presentation.ui.navigation.Screen
+import com.manuelklyukvin.core.presentation.vacancies.models.toPresentation
 import com.manuelklyukvin.favorite.domain.vacancies.GetFavoriteVacanciesUseCase
 import com.manuelklyukvin.favorite.presentation.screen.models.FavoriteListEvent
 import com.manuelklyukvin.favorite.presentation.screen.models.FavoriteListState

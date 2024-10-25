@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.manuelklyukvin.core.domain.result.models.Result
-import com.manuelklyukvin.core.presentation.navigation.NavigationState
-import com.manuelklyukvin.core.vacancies.models.toPresentation
+import com.manuelklyukvin.core.presentation.ui.navigation.NavigationState
+import com.manuelklyukvin.core.presentation.vacancies.models.toPresentation
 import com.manuelklyukvin.vacancy.domain.vacancies.GetVacancyByIdUseCase
 import com.manuelklyukvin.vacancy.presentation.screen.models.VacancyEvent
 import com.manuelklyukvin.vacancy.presentation.screen.models.VacancyState

@@ -1,6 +1,6 @@
 package com.manuelklyukvin.vacancy.presentation.screen.models
 
-import com.manuelklyukvin.core.vacancies.models.Vacancy
+import com.manuelklyukvin.core.presentation.vacancies.models.Vacancy
 
 data class VacancyState(
     val viewState: VacancyViewState = VacancyViewState.INITIAL,

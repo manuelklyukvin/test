@@ -10,11 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.manuelklyukvin.core.presentation.components.AppScaffold
-import com.manuelklyukvin.core.presentation.components.LoadingScreen
-import com.manuelklyukvin.core.presentation.theme.AppTheme
-import com.manuelklyukvin.core.presentation.theme.LocalNavigationState
-import com.manuelklyukvin.core.vacancies.VacanciesPreviewBlock
+import com.manuelklyukvin.core.presentation.ui.components.AppScaffold
+import com.manuelklyukvin.core.presentation.ui.components.LoadingScreen
+import com.manuelklyukvin.core.presentation.ui.theme.AppTheme
+import com.manuelklyukvin.core.presentation.ui.theme.LocalNavigationState
+import com.manuelklyukvin.core.presentation.vacancies.VacanciesPreviewBlock
 import com.manuelklyukvin.favorite.presentation.R
 import com.manuelklyukvin.favorite.presentation.screen.models.FavoriteListEvent
 import com.manuelklyukvin.favorite.presentation.screen.models.FavoriteListState

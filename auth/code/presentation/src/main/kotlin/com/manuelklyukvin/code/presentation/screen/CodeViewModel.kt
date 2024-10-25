@@ -3,8 +3,8 @@ package com.manuelklyukvin.code.presentation.screen
 import androidx.lifecycle.ViewModel
 import com.manuelklyukvin.code.presentation.screen.models.CodeEvent
 import com.manuelklyukvin.code.presentation.screen.models.CodeState
-import com.manuelklyukvin.core.presentation.navigation.NavigationState
-import com.manuelklyukvin.core.presentation.navigation.Screen
+import com.manuelklyukvin.core.presentation.ui.navigation.NavigationState
+import com.manuelklyukvin.core.presentation.ui.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

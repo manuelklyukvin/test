@@ -11,7 +11,7 @@ plugins {
 }
 
 android {
-    namespace = GradleNamespaces.VACANCY_PRESENTATION
+    namespace = GradleNamespaces.VACANCY
 }
 
 dependencies {

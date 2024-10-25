@@ -14,10 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import com.manuelklyukvin.core.presentation.components.AppIcon
-import com.manuelklyukvin.core.presentation.theme.AppTheme
-import com.manuelklyukvin.core.presentation.theme.LocalNavigationState
-import com.manuelklyukvin.core.vacancies.VacanciesPreviewBlock
+import com.manuelklyukvin.core.presentation.ui.components.AppIcon
+import com.manuelklyukvin.core.presentation.ui.theme.AppTheme
+import com.manuelklyukvin.core.presentation.ui.theme.LocalNavigationState
+import com.manuelklyukvin.core.presentation.vacancies.VacanciesPreviewBlock
 import com.manuelklyukvin.search.presentation.R
 import com.manuelklyukvin.search.presentation.screen.models.SearchEvent
 import com.manuelklyukvin.search.presentation.screen.models.SearchState
