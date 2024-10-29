@@ -39,26 +39,6 @@ class VacancyRepositoryImpl(
         }
     }
 
-    private fun migrateFavoritesIfNeeded(database: String) {
-        val migrationDone = favoritePreferencesManager.isInitialMigrationDone()
-        if (migrationDone) return
-
-        val dataVacancyResponse = parseVacancyResponse(database)
-        val initialFavoriteIds = dataVacancyResponse.dataVacancyList
-            .filter {
-                it.isFavorite
-            }
-            .map {
-                it.id
-            }
-
-        initialFavoriteIds.forEach { id ->
-            favoritePreferencesManager.saveFavoriteVacancy(id, true)
-        }
-
-        favoritePreferencesManager.setInitialMigrationDone(true)
-    }
-
     override suspend fun getVacancyById(vacancyId: String): Result<DomainVacancy, String?> {
         return when (val vacanciesResult = getVacancies()) {
             is Result.Error -> Result.Error(vacanciesResult.error)
@@ -110,5 +90,26 @@ class VacancyRepositoryImpl(
             }
         }
     }
+
     private fun parseVacancyResponse(database: String) = Gson().fromJson(database, DataVacancyResponse::class.java)
+
+    private suspend fun migrateFavoritesIfNeeded(database: String) {
+        val migrationDone = favoritePreferencesManager.isInitialMigrationDone()
+        if (migrationDone) return
+
+        val dataVacancyResponse = parseVacancyResponse(database)
+        val initialFavoriteIds = dataVacancyResponse.dataVacancyList
+            .filter {
+                it.isFavorite
+            }
+            .map {
+                it.id
+            }
+
+        initialFavoriteIds.forEach { id ->
+            favoritePreferencesManager.saveFavoriteVacancy(id, true)
+        }
+
+        favoritePreferencesManager.setInitialMigrationDone(true)
+    }
 }
