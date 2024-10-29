@@ -79,6 +79,9 @@ private fun VacanciesBlock(state: SearchState, onEvent: (SearchEvent) -> Unit) {
                     navigationState = navigationState
                 )
             )
+        },
+        onFavoriteButtonClicked = { vacancy ->
+            onEvent(SearchEvent.OnFavoriteButtonClicked(vacancyId = vacancy.id))
         }
     )
 }

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.manuelklyukvin.core.domain.result.models.Result
+import com.manuelklyukvin.core.domain.vacancies.ToggleFavoriteStatusUseCase
 import com.manuelklyukvin.core.presentation.ui.navigation.NavigationState
 import com.manuelklyukvin.core.presentation.ui.navigation.Screen
 import com.manuelklyukvin.core.presentation.vacancies.models.toPresentation
@@ -23,7 +24,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val getOffersUseCase: GetOffersUseCase,
-    private val getVacanciesUseCase: GetVacanciesUseCase
+    private val getVacanciesUseCase: GetVacanciesUseCase,
+    private val toggleFavoriteStatusUseCase: ToggleFavoriteStatusUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(SearchState())
@@ -39,6 +41,7 @@ class SearchViewModel @Inject constructor(
             vacancyId = event.vacancyId,
             navigationState = event.navigationState
         )
+        is SearchEvent.OnFavoriteButtonClicked -> onFavoriteButtonClicked(event.vacancyId)
         SearchEvent.OnShowMoreVacanciesButtonClicked -> onShowMoreVacanciesButtonClicked()
     }
 
@@ -80,6 +83,12 @@ class SearchViewModel @Inject constructor(
         navigationState: NavigationState
     ) {
         navigationState.navigate(Screen.Vacancy(vacancyId))
+    }
+
+    private fun onFavoriteButtonClicked(vacancyId: String) {
+        viewModelScope.launch {
+            toggleFavoriteStatusUseCase(vacancyId)
+        }
     }
 
     private fun onShowMoreVacanciesButtonClicked() {

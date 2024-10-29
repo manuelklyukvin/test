@@ -8,5 +8,6 @@ sealed interface SearchEvent {
         val vacancyId: String,
         val navigationState: NavigationState
     ) : SearchEvent
+    class OnFavoriteButtonClicked(val vacancyId: String) : SearchEvent
     data object OnShowMoreVacanciesButtonClicked : SearchEvent
 }

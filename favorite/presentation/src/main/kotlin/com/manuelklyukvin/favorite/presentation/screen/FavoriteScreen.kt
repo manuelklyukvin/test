@@ -16,24 +16,24 @@ import com.manuelklyukvin.core.presentation.ui.theme.AppTheme
 import com.manuelklyukvin.core.presentation.ui.theme.LocalNavigationState
 import com.manuelklyukvin.core.presentation.vacancies.VacanciesPreviewBlock
 import com.manuelklyukvin.favorite.presentation.R
-import com.manuelklyukvin.favorite.presentation.screen.models.FavoriteListEvent
-import com.manuelklyukvin.favorite.presentation.screen.models.FavoriteListState
-import com.manuelklyukvin.favorite.presentation.screen.models.FavoriteListViewState
+import com.manuelklyukvin.favorite.presentation.screen.models.FavoriteEvent
+import com.manuelklyukvin.favorite.presentation.screen.models.FavoriteState
+import com.manuelklyukvin.favorite.presentation.screen.models.FavoriteViewState
 
 @Composable
-fun FavoriteScreen(state: FavoriteListState, onEvent: (FavoriteListEvent) -> Unit) {
+fun FavoriteScreen(state: FavoriteState, onEvent: (FavoriteEvent) -> Unit) {
     AppScaffold {
         when (state.viewState) {
-            FavoriteListViewState.INITIAL -> Unit
-            FavoriteListViewState.LOADING -> LoadingScreen()
-            FavoriteListViewState.CONTENT -> Content(state, onEvent)
-            FavoriteListViewState.ERROR -> Unit
+            FavoriteViewState.INITIAL -> Unit
+            FavoriteViewState.LOADING -> LoadingScreen()
+            FavoriteViewState.CONTENT -> Content(state, onEvent)
+            FavoriteViewState.ERROR -> Unit
         }
     }
 }
 
 @Composable
-private fun Content(state: FavoriteListState, onEvent: (FavoriteListEvent) -> Unit) {
+private fun Content(state: FavoriteState, onEvent: (FavoriteEvent) -> Unit) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -49,7 +49,7 @@ private fun Content(state: FavoriteListState, onEvent: (FavoriteListEvent) -> Un
 }
 
 @Composable
-private fun Title(state: FavoriteListState) {
+private fun Title(state: FavoriteState) {
     Column(modifier = Modifier.padding(top = AppTheme.shapes.paddingExtraLarge)) {
         Text(
             text = stringResource(R.string.favorite_title),
@@ -66,18 +66,21 @@ private fun Title(state: FavoriteListState) {
 }
 
 @Composable
-private fun VacanciesBlock(state: FavoriteListState, onEvent: (FavoriteListEvent) -> Unit) {
+private fun VacanciesBlock(state: FavoriteState, onEvent: (FavoriteEvent) -> Unit) {
     val navigationState = LocalNavigationState.current
 
     VacanciesPreviewBlock(
         vacancyList = state.vacancyList,
         onVacancyClick = { vacancy ->
             onEvent(
-                FavoriteListEvent.OnVacancyClicked(
+                FavoriteEvent.OnVacancyClicked(
                     vacancyId = vacancy.id,
                     navigationState = navigationState
                 )
             )
+        },
+        onFavoriteButtonClicked = { vacancy ->
+            onEvent(FavoriteEvent.OnFavoriteButtonClicked(vacancyId = vacancy.id))
         }
     )
 }

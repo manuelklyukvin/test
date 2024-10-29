@@ -11,4 +11,7 @@
     <string name="vacancy_questions_subtitle">Он получит его с откликом на вакансию</string>
 
     <string name="vacancy_reply_button">Откликнуться</string>
+    <string name="reply_title">Резюме для отклика</string>
+    <string name="reply_add_letter">Добавить сопроводительное</string>
+    <string name="reply_letter_hint">Ваше сопроводительное письмо</string>
 </resources>

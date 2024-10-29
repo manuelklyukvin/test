@@ -6,13 +6,11 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,7 +33,11 @@ import com.manuelklyukvin.core.presentation.ui.utils.noIndicationClickable
 import com.manuelklyukvin.core.presentation.vacancies.models.Vacancy
 
 @Composable
-fun VacanciesPreviewBlock(vacancyList: List<Vacancy>, onVacancyClick: (Vacancy) -> Unit) {
+fun VacanciesPreviewBlock(
+    vacancyList: List<Vacancy>,
+    onVacancyClick: (Vacancy) -> Unit,
+    onFavoriteButtonClicked: (Vacancy) -> Unit
+) {
     if (vacancyList.isNotEmpty()) {
         Column(
             modifier = Modifier
@@ -48,6 +50,9 @@ fun VacanciesPreviewBlock(vacancyList: List<Vacancy>, onVacancyClick: (Vacancy) 
                     vacancy = vacancy,
                     onVacancyClicked = {
                         onVacancyClick(vacancy)
+                    },
+                    onFavoriteButtonClicked = {
+                        onFavoriteButtonClicked(vacancy)
                     }
                 )
             }
@@ -56,7 +61,11 @@ fun VacanciesPreviewBlock(vacancyList: List<Vacancy>, onVacancyClick: (Vacancy) 
 }
 
 @Composable
-private fun VacancyCard(vacancy: Vacancy, onVacancyClicked: () -> Unit) {
+private fun VacancyCard(
+    vacancy: Vacancy,
+    onVacancyClicked: () -> Unit,
+    onFavoriteButtonClicked: () -> Unit
+) {
     AppCard(
         modifier = Modifier
             .fillMaxWidth()
@@ -68,7 +77,7 @@ private fun VacancyCard(vacancy: Vacancy, onVacancyClicked: () -> Unit) {
         Row {
             VacancyDetails(vacancy)
             Spacer(modifier = Modifier.width(AppTheme.shapes.paddingMedium))
-            VacancyFavoriteButton(vacancy)
+            VacancyFavoriteButton(vacancy, onFavoriteButtonClicked)
         }
         Spacer(modifier = Modifier.height(AppTheme.shapes.paddingMedium))
         AppButton(
@@ -159,7 +168,7 @@ private fun Experience(vacancy: Vacancy) {
 }
 
 @Composable
-private fun VacancyFavoriteButton(vacancy: Vacancy) {
+private fun VacancyFavoriteButton(vacancy: Vacancy, onFavoriteButtonClicked: () -> Unit) {
     var isFavorite by remember {
         mutableStateOf(vacancy.isFavorite)
     }
@@ -175,16 +184,14 @@ private fun VacancyFavoriteButton(vacancy: Vacancy) {
         tint = AppTheme.colorScheme.gray4
     }
 
-    IconButton(
-        modifier = Modifier.size(AppTheme.shapes.sizeSmall),
-        onClick = {
-            isFavorite = !isFavorite
-        }
-    ) {
-        AppIcon(
-            modifier = Modifier.fillMaxSize(),
-            painter = painter,
-            tint = tint
-        )
-    }
+    AppIcon(
+        modifier = Modifier
+            .size(AppTheme.shapes.sizeSmall)
+            .noIndicationClickable {
+                onFavoriteButtonClicked()
+                isFavorite = !isFavorite
+            },
+        painter = painter,
+        tint = tint
+    )
 }

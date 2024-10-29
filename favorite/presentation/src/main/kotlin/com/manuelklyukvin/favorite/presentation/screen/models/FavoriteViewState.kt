@@ -1,5 +1,5 @@
 package com.manuelklyukvin.favorite.presentation.screen.models
 
-enum class FavoriteListViewState {
+enum class FavoriteViewState {
     INITIAL, LOADING, CONTENT, ERROR
 }

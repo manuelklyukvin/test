@@ -4,12 +4,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,6 +19,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,7 +31,10 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.manuelklyukvin.core.presentation.ui.components.AppButton
 import com.manuelklyukvin.core.presentation.ui.components.AppCard
 import com.manuelklyukvin.core.presentation.ui.components.AppIcon
@@ -34,11 +42,13 @@ import com.manuelklyukvin.core.presentation.ui.components.AppScaffold
 import com.manuelklyukvin.core.presentation.ui.components.LoadingScreen
 import com.manuelklyukvin.core.presentation.ui.theme.AppTheme
 import com.manuelklyukvin.core.presentation.ui.theme.LocalNavigationState
+import com.manuelklyukvin.core.presentation.ui.utils.noIndicationClickable
 import com.manuelklyukvin.core.presentation.vacancies.models.Vacancy
 import com.manuelklyukvin.vacancy.presentation.R
 import com.manuelklyukvin.vacancy.presentation.screen.models.VacancyEvent
 import com.manuelklyukvin.vacancy.presentation.screen.models.VacancyState
 import com.manuelklyukvin.vacancy.presentation.screen.models.VacancyViewState
+import com.manuelklyukvin.vacancy.presentation.utils.VacancyTextField
 import com.manuelklyukvin.vacancy.presentation.utils.VacancyTopBarButton
 import com.manuelklyukvin.core.presentation.R as CoreR
 
@@ -56,8 +66,14 @@ fun VacancyScreen(state: VacancyState, onEvent: (VacancyEvent) -> Unit, ) {
         when (viewState) {
             VacancyViewState.INITIAL -> Unit
             VacancyViewState.LOADING -> LoadingScreen()
-            VacancyViewState.CONTENT -> Content(state.vacancy!!)
+            VacancyViewState.CONTENT -> Content(state.vacancy!!, onEvent)
             VacancyViewState.ERROR -> Unit
+        }
+        if (state.isReplyScreenShown) {
+            ReplyScreen(state, onEvent)
+        }
+        if (state.isAddLetterScreenShown) {
+            AddLetterScreen(state, onEvent)
         }
     }
 }
@@ -113,7 +129,7 @@ private fun ActionPanel(state: VacancyState, onEvent: (VacancyEvent) -> Unit) {
 }
 
 @Composable
-private fun Content(vacancy: Vacancy) {
+private fun Content(vacancy: Vacancy, onEvent: (VacancyEvent) -> Unit) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -147,7 +163,11 @@ private fun Content(vacancy: Vacancy) {
             }
         }
         item {
-            ReplyButton()
+            ReplyButton(
+                onButtonClicked = {
+                    onEvent(VacancyEvent.OnReplyButtonClicked)
+                }
+            )
         }
     }
 }
@@ -357,16 +377,126 @@ private fun Question(question: String) {
 }
 
 @Composable
-private fun ReplyButton() {
+private fun ReplyButton(onButtonClicked: () -> Unit) {
     AppButton(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = AppTheme.shapes.paddingMedium)
             .height(AppTheme.shapes.sizeExtraLarge),
-        onClick = {  },
+        onClick = {
+            onButtonClicked()
+        },
         containerColor = AppTheme.colorScheme.green,
         disabledContainerColor = AppTheme.colorScheme.darkGreen,
         text = stringResource(R.string.vacancy_reply_button),
         textStyle = AppTheme.typography.buttonText1
     )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ReplyScreen(state: VacancyState, onEvent: (VacancyEvent) -> Unit) {
+    ModalBottomSheet(
+        modifier = Modifier.padding(
+            vertical = AppTheme.shapes.paddingLarge,
+            horizontal = AppTheme.shapes.paddingMedium
+        ),
+        onDismissRequest = {
+            onEvent(VacancyEvent.OnReplyScreenClosed)
+        },
+        containerColor = AppTheme.colorScheme.black
+    ) {
+        ReplyTitle(state)
+        Spacer(modifier = Modifier.height(30.dp))
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .noIndicationClickable {
+                    onEvent(VacancyEvent.OnAddLetterButtonClicked)
+                },
+            text = stringResource(R.string.reply_add_letter),
+            style = AppTheme.typography.buttonText1,
+            color = AppTheme.colorScheme.green,
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        ReplyButton(
+            onButtonClicked = {
+                onEvent(VacancyEvent.OnReplyScreenClosed)
+            }
+        )
+    }
+}
+
+@Composable
+private fun ReplyTitle(state: VacancyState) {
+    Row(modifier = Modifier.height(AppTheme.shapes.sizeExtraLarge)) {
+        Image(
+            modifier = Modifier.size(AppTheme.shapes.sizeExtraLarge),
+            painter = painterResource(R.drawable.avatar),
+            contentDescription = null
+        )
+        Spacer(modifier = Modifier.width(AppTheme.shapes.paddingMedium))
+        Column(
+            modifier = Modifier.fillMaxHeight(),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = stringResource(R.string.reply_title),
+                style = AppTheme.typography.text1,
+                color = AppTheme.colorScheme.gray3
+            )
+            Text(
+                text = state.vacancy!!.title,
+                style = AppTheme.typography.title3,
+                color = AppTheme.colorScheme.white,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+    }
+    Spacer(modifier = Modifier.height(AppTheme.shapes.paddingExtraLarge))
+    HorizontalDivider(
+        thickness = 1.dp,
+        color = AppTheme.colorScheme.gray2
+    )
+}
+
+@Composable
+fun AddLetterScreen(state: VacancyState, onEvent: (VacancyEvent) -> Unit) {
+    Dialog(
+        onDismissRequest = {
+            onEvent(VacancyEvent.OnAddLetterScreenClosed)
+        }
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    color = AppTheme.colorScheme.black,
+                    shape = AppTheme.shapes.radiusSmall
+                )
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = AppTheme.shapes.paddingMedium)
+                    .padding(
+                        top = AppTheme.shapes.paddingLarge,
+                        bottom = AppTheme.shapes.paddingSmall
+                    )
+            ) {
+                ReplyTitle(state)
+                VacancyTextField(
+                    modifier = Modifier.padding(vertical = AppTheme.shapes.paddingMedium),
+                    state = state.letterState,
+                    hint = stringResource(R.string.reply_letter_hint)
+                )
+                ReplyButton(
+                    onButtonClicked = {
+                        onEvent(VacancyEvent.OnAddLetterScreenClosed)
+                    }
+                )
+            }
+        }
+    }
 }

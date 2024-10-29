@@ -3,6 +3,7 @@ package com.manuelklyukvin.search.presentation.screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,9 +35,7 @@ private const val VACANCIES_TO_SHOW_COUNT = 3
 @Composable
 fun SearchPreviewScreen(state: SearchState, onEvent: (SearchEvent) -> Unit) {
     LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = AppTheme.shapes.paddingMedium),
+        modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingExtraLarge)
     ) {
         item {
@@ -57,8 +56,14 @@ private fun OffersBlock(state: SearchState) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(AppTheme.shapes.paddingMedium)
         ) {
+            item {
+                Spacer(Modifier)
+            }
             items(offerList) { offer ->
                 OfferCard(offer)
+            }
+            item {
+                Spacer(Modifier)
             }
         }
     }
@@ -111,23 +116,28 @@ private fun VacanciesBlock(state: SearchState, onEvent: (SearchEvent) -> Unit) {
 
     val navigationState = LocalNavigationState.current
 
-    Text(
-        text = stringResource(R.string.search_vacancies_title),
-        style = AppTheme.typography.title2,
-        color = AppTheme.colorScheme.white
-    )
-    VacanciesPreviewBlock(
-        vacancyList = vacanciesToShow,
-        onVacancyClick = { vacancy ->
-            onEvent(
-                SearchEvent.OnVacancyClicked(
-                    vacancyId = vacancy.id,
-                    navigationState = navigationState
+    Column(modifier = Modifier.padding(horizontal = AppTheme.shapes.paddingMedium)) {
+        Text(
+            text = stringResource(R.string.search_vacancies_title),
+            style = AppTheme.typography.title2,
+            color = AppTheme.colorScheme.white
+        )
+        VacanciesPreviewBlock(
+            vacancyList = vacanciesToShow,
+            onVacancyClick = { vacancy ->
+                onEvent(
+                    SearchEvent.OnVacancyClicked(
+                        vacancyId = vacancy.id,
+                        navigationState = navigationState
+                    )
                 )
-            )
-        }
-    )
-    ShowMoreVacanciesButton(state, onEvent)
+            },
+            onFavoriteButtonClicked = { vacancy ->
+                onEvent(SearchEvent.OnFavoriteButtonClicked(vacancyId = vacancy.id))
+            }
+        )
+        ShowMoreVacanciesButton(state, onEvent)
+    }
 }
 
 @Composable

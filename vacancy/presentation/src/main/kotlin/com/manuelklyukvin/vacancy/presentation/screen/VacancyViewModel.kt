@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.manuelklyukvin.core.domain.result.models.Result
+import com.manuelklyukvin.core.domain.vacancies.ToggleFavoriteStatusUseCase
 import com.manuelklyukvin.core.presentation.ui.navigation.NavigationState
 import com.manuelklyukvin.core.presentation.vacancies.models.toPresentation
 import com.manuelklyukvin.vacancy.domain.vacancies.GetVacancyByIdUseCase
@@ -19,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class VacancyViewModel @Inject constructor(
-    private val getVacancyByIdUseCase: GetVacancyByIdUseCase
+    private val getVacancyByIdUseCase: GetVacancyByIdUseCase,
+    private val toggleFavoriteStatusUseCase: ToggleFavoriteStatusUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(VacancyState())
@@ -30,6 +32,10 @@ class VacancyViewModel @Inject constructor(
         is VacancyEvent.OnScreenInit -> loadVacancy(event.vacancyId)
         is VacancyEvent.OnBackButtonClicked -> onBackButtonClicked(event.navigationState)
         VacancyEvent.OnFavoriteButtonClicked -> onFavoriteButtonClicked()
+        VacancyEvent.OnReplyButtonClicked -> onReplyButtonClicked()
+        VacancyEvent.OnReplyScreenClosed -> onReplyScreenClosed()
+        VacancyEvent.OnAddLetterButtonClicked -> onAddLetterButtonClicked()
+        VacancyEvent.OnAddLetterScreenClosed -> onAddLetterScreenClosed()
     }
 
     private fun loadVacancy(vacancyId: String) {
@@ -57,6 +63,28 @@ class VacancyViewModel @Inject constructor(
     }
 
     private fun onFavoriteButtonClicked() {
-        _state.value = state.value.copy(isVacancyFavorite = !state.value.isVacancyFavorite)
+        viewModelScope.launch {
+            toggleFavoriteStatusUseCase(state.value.vacancy!!.id)
+            _state.value = state.value.copy(isVacancyFavorite = !state.value.isVacancyFavorite)
+        }
+    }
+
+    private fun onReplyButtonClicked() {
+        _state.value = state.value.copy(isReplyScreenShown = true)
+    }
+
+    private fun onReplyScreenClosed() {
+        _state.value = state.value.copy(isReplyScreenShown = false)
+    }
+
+    private fun onAddLetterButtonClicked() {
+        _state.value = state.value.copy(
+            isAddLetterScreenShown = true,
+            isReplyScreenShown = false
+        )
+    }
+
+    private fun onAddLetterScreenClosed() {
+        _state.value = state.value.copy(isAddLetterScreenShown = false)
     }
 }

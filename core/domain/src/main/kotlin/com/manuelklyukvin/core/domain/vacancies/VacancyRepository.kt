@@ -10,4 +10,6 @@ interface VacancyRepository {
     suspend fun getVacancyById(vacancyId: String): Result<DomainVacancy, String?>
 
     suspend fun getFavoriteVacancies(): Result<List<DomainVacancy>, String?>
+
+    suspend fun toggleFavoriteStatus(vacancyId: String): Result<Unit, String?>
 }
